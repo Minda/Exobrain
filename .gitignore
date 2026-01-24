@@ -1,9 +1,9 @@
 # Personal content (nested private repo)
 personal/
 
-# Symlinks to personal content
-memories
-drafts
+# Symlinks to personal content (root level only)
+/memories
+/drafts
 .claude/relational-context.md
 .cursor/rules/relational-context.mdc
 
