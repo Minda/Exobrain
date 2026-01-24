@@ -1,0 +1,75 @@
+# Personal content (nested private repo)
+personal/
+
+# Symlinks to personal content
+memories
+drafts
+.claude/relational-context.md
+.cursor/rules/relational-context.mdc
+
+# Personal skill symlinks (these point to personal/ versions)
+.claude/skills/self-regulation
+.claude/skills/loading-memories
+.claude/skills/saving-memories
+.claude/skills/recognizing-grounding
+.claude/skills/updating-constitution
+.claude/skills/substack-writing
+
+# Build artifacts
+target/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+*.py[cod]
+.python-version
+
+# Rust
+Cargo.lock
+
+# SQLite databases (conversations, etc.)
+*.db
+*.sqlite
+*.sqlite3
+
+# Transcripts (large files)
+transcripts/
+
+# Conversations archive (private)
+conversations/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/

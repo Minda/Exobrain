@@ -1,0 +1,23 @@
+[package]
+name = "minmind-cli"
+version.workspace = true
+edition = "2021"
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "mm"
+path = "src/main.rs"
+
+[dependencies]
+minmind-core.workspace = true
+minmind-store.workspace = true
+clap.workspace = true
+tokio.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+dirs.workspace = true
