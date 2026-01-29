@@ -85,13 +85,35 @@ file_path = "cheatsheets/[filename].html"
 
 If `cheatsheets/index.html` exists, add an entry for the new cheatsheet.
 
-### 7. Confirm Success
+### 7. Confirm Success & Public Sharing
 
 Report back:
 - Saved location: `cheatsheets/[filename].html`
 - File size
 - Whether it's viewable in browser
 - Any enhancements made
+
+### 8. Remind About Public Sharing (IMPORTANT)
+
+**Always include this reminder:**
+
+> **To make this cheatsheet publicly accessible:**
+>
+> Once you push this to GitHub, you can share it publicly using raw.githack.com:
+>
+> 1. Get the GitHub raw URL:
+>    `https://raw.githubusercontent.com/[username]/[repo]/[branch]/cheatsheets/[filename].html`
+>
+> 2. Convert it using raw.githack.com:
+>    - Go to https://raw.githack.com/
+>    - Paste your raw GitHub URL
+>    - Get the CDN URL for sharing
+>
+> Example:
+> - GitHub raw: `https://raw.githubusercontent.com/yourusername/DigitalBrain/main/cheatsheets/exo-frontier-ai.html`
+> - Public URL: `https://rawcdn.githack.com/yourusername/DigitalBrain/[commit-hash]/cheatsheets/exo-frontier-ai.html`
+>
+> The CDN URL will properly serve the HTML with correct MIME types and make it viewable as a webpage.
 
 ## Examples
 
@@ -105,6 +127,7 @@ Response:
 3. Generate filename: `git-commands-reference.html`
 4. Save to `cheatsheets/git-commands-reference.html`
 5. "Saved your Git commands cheatsheet to `cheatsheets/git-commands-reference.html`. You can open it directly in your browser."
+6. Include the raw.githack.com reminder for public sharing
 
 ### Example 2: Partial Content
 
