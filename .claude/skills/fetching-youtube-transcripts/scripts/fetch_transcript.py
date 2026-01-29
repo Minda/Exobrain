@@ -3,21 +3,22 @@
 Fetch YouTube video transcript using youtube-transcript-api.
 
 Usage:
-    python fetch_transcript.py <youtube-url-or-id>
+    python fetch_transcript.py <youtube-url-or-id> [--output-dir <dir>]
 
-Outputs JSON to stdout:
+Saves transcript JSON directly to file (avoids passing large content through LLM).
+Outputs only status and file path to stdout:
     {
         "success": true,
         "video_id": "...",
-        "title": "...",  # if available
-        "transcript": "Full transcript text...",
-        "transcript_data": [...]  # Original segments with timestamps
+        "file_path": "transcripts/abc123.json"
     }
 """
 
 import json
+import os
 import re
 import sys
+from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -90,14 +91,43 @@ def fetch_transcript(video_id: str) -> dict:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print(json.dumps({"success": False, "error": "Usage: python fetch_transcript.py <youtube-url-or-id>"}), file=sys.stderr)
+        print(json.dumps({"success": False, "error": "Usage: python fetch_transcript.py <youtube-url-or-id> [--output-dir <dir>]"}))
         sys.exit(1)
 
+    # Parse arguments
     url_or_id = sys.argv[1]
+    output_dir = "transcripts"  # default
+    
+    # Check for --output-dir flag
+    if "--output-dir" in sys.argv:
+        idx = sys.argv.index("--output-dir")
+        if idx + 1 < len(sys.argv):
+            output_dir = sys.argv[idx + 1]
+
     video_id = extract_video_id(url_or_id)
     result = fetch_transcript(video_id)
-    print(json.dumps(result, indent=2))
-    sys.exit(0 if result.get("success") else 1)
+
+    if not result.get("success"):
+        # On failure, just output the error (no large content)
+        print(json.dumps({"success": False, "video_id": video_id, "error": result.get("error", "Unknown error")}))
+        sys.exit(1)
+
+    # Create output directory if needed
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    # Save full transcript JSON to file
+    file_path = output_path / f"{video_id}.json"
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    # Output only status and file path (NOT the transcript content)
+    print(json.dumps({
+        "success": True,
+        "video_id": video_id,
+        "file_path": str(file_path)
+    }))
+    sys.exit(0)
 
 
 if __name__ == "__main__":

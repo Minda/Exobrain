@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exo: Run Frontier AI Locally</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --accent: #00ff88;
+            --accent-dim: #00ff8833;
+            --accent-glow: #00ff8822;
+            --text-primary: #e8e8e8;
+            --text-secondary: #888;
+            --border: #2a2a3a;
+            --node-1: #ff6b6b;
+            --node-2: #4ecdc4;
+            --node-3: #ffe66d;
+            --node-4: #a855f7;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated mesh background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            background-image:
+                radial-gradient(circle at 20% 30%, var(--accent) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, var(--accent) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, var(--accent) 1px, transparent 1px),
+                radial-gradient(circle at 60% 20%, var(--accent) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: meshFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes meshFloat {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-10px, -10px); }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -4px;
+            text-shadow: 0 0 40px var(--accent-glow);
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Core Idea Section */
+        .core-idea {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a2e 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .core-idea::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .core-idea h2 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .core-idea p {
+            font-size: 28px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .core-idea strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Pipeline Diagram */
+        .pipeline {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .pipeline h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 12px;
+            background: var(--bg-dark);
+            border-radius: 6px;
+            border: 1px dashed var(--border);
+        }
+
+        .device {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            border: 2px solid;
+            min-width: 100px;
+            position: relative;
+        }
+
+        .device:nth-child(2) { border-color: var(--node-1); }
+        .device:nth-child(3) { border-color: var(--node-2); }
+        .device:nth-child(4) { border-color: var(--node-3); }
+        .device:nth-child(5) { border-color: var(--node-4); }
+
+        .device-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .device-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .device-spec {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .device-layers {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--accent);
+            margin-top: 6px;
+            padding: 3px 8px;
+            background: var(--accent-dim);
+            border-radius: 4px;
+        }
+
+        .arrow {
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+
+        /* Three Pillars */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .pillars { grid-template-columns: 1fr; }
+            .pipeline-flow { justify-content: center; }
+        }
+
+        .pillar {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pillar:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+
+        .pillar-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-dim);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 24px;
+        }
+
+        .pillar h4 {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .pillar p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Architecture */
+        .architecture {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .architecture h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .arch-layer {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .arch-layer:last-child {
+            margin-bottom: 0;
+        }
+
+        .arch-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 100px;
+        }
+
+        .arch-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            flex: 1;
+        }
+
+        .arch-tech {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            padding: 4px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        /* Capabilities */
+        .capabilities {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 600px) {
+            .capabilities { grid-template-columns: 1fr; }
+        }
+
+        .capability {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .capability-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-dim);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .capability-text h5 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .capability-text p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Adjacent Fields */
+        .adjacent {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .adjacent h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .adjacent-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 700px) {
+            .adjacent-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .adjacent-item {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .adjacent-item h5 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .adjacent-item p {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .adjacent-center {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .exo-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            padding: 12px 32px;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            background: var(--accent-dim);
+        }
+
+        /* Quick Start */
+        .quickstart {
+            background: linear-gradient(135deg, #1a2a1a 0%, var(--bg-card) 100%);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .quickstart h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-comment {
+            color: #666;
+        }
+
+        .code-command {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer-meta span {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">exo</div>
+            <p class="tagline">Run Frontier AI Locally</p>
+        </header>
+
+        <section class="core-idea">
+            <h2>The Core Idea</h2>
+            <p>
+                <strong>One model. Many devices.</strong> No single machine big enough?
+                Slice the model across all of them. Pool the memory you already own
+                into one distributed AI cluster.
+            </p>
+        </section>
+
+        <section class="pipeline">
+            <h3>Pipeline Parallel Inference</h3>
+            <div class="pipeline-flow">
+                <div class="pipeline-label">Prompt →</div>
+                <div class="device">
+                    <div class="device-icon">🖥️</div>
+                    <div class="device-name">Mac Mini</div>
+                    <div class="device-spec">8GB</div>
+                    <div class="device-layers">Layers 1-10</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="device">
+                    <div class="device-icon">💻</div>
+                    <div class="device-name">MacBook</div>
+                    <div class="device-spec">16GB</div>
+                    <div class="device-layers">Layers 11-20</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="device">
+                    <div class="device-icon">📱</div>
+                    <div class="device-name">iPhone</div>
+                    <div class="device-spec">6GB</div>
+                    <div class="device-layers">Layers 21-26</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="device">
+                    <div class="device-icon">📲</div>
+                    <div class="device-name">iPad</div>
+                    <div class="device-spec">8GB</div>
+                    <div class="device-layers">Layers 27-40</div>
+                </div>
+                <div class="pipeline-label">→ Response</div>
+            </div>
+        </section>
+
+        <section class="pillars">
+            <div class="pillar">
+                <div class="pillar-icon">🧩</div>
+                <h4>Model Sharding</h4>
+                <p>Model layers split into contiguous "shards" distributed across devices proportional to their memory</p>
+            </div>
+            <div class="pillar">
+                <div class="pillar-icon">🔗</div>
+                <h4>P2P Network</h4>
+                <p>No master node. Every device is equal. Connect anywhere in the mesh—no central point of failure</p>
+            </div>
+            <div class="pillar">
+                <div class="pillar-icon">📡</div>
+                <h4>Auto-Discovery</h4>
+                <p>Just run exo on each device. They find each other via UDP broadcast. Zero configuration needed</p>
+            </div>
+        </section>
+
+        <section class="architecture">
+            <h3>Architecture Stack</h3>
+            <div class="arch-layer">
+                <div class="arch-label">API</div>
+                <div class="arch-desc">ChatGPT-compatible endpoints</div>
+                <div class="arch-tech">
+                    <span class="tech-badge">REST</span>
+                    <span class="tech-badge">OpenAI drop-in</span>
+                </div>
+            </div>
+            <div class="arch-layer">
+                <div class="arch-label">Orchestration</div>
+                <div class="arch-desc">Topology, partitioning, model download</div>
+                <div class="arch-tech">
+                    <span class="tech-badge">Topology Manager</span>
+                    <span class="tech-badge">Ring Partitioner</span>
+                </div>
+            </div>
+            <div class="arch-layer">
+                <div class="arch-label">Network</div>
+                <div class="arch-desc">Device communication layer</div>
+                <div class="arch-tech">
+                    <span class="tech-badge">gRPC</span>
+                    <span class="tech-badge">UDP Broadcast</span>
+                    <span class="tech-badge">RDMA/TB5</span>
+                </div>
+            </div>
+            <div class="arch-layer">
+                <div class="arch-label">Inference</div>
+                <div class="arch-desc">Hardware-specific execution</div>
+                <div class="arch-tech">
+                    <span class="tech-badge">MLX (Apple)</span>
+                    <span class="tech-badge">Tinygrad (CUDA/ROCm)</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="capabilities">
+            <div class="capability">
+                <div class="capability-icon">🔀</div>
+                <div class="capability-text">
+                    <h5>Heterogeneous Devices</h5>
+                    <p>Mix Macs, NVIDIA GPUs, Raspberry Pis, phones</p>
+                </div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon">⚡</div>
+                <div class="capability-text">
+                    <h5>RDMA over Thunderbolt</h5>
+                    <p>99% latency reduction on macOS 26.2+</p>
+                </div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon">🚀</div>
+                <div class="capability-text">
+                    <h5>Tensor Parallelism</h5>
+                    <p>1.8x speedup (2 devices), 3.2x (4 devices)</p>
+                </div>
+            </div>
+            <div class="capability">
+                <div class="capability-icon">🔌</div>
+                <div class="capability-text">
+                    <h5>ChatGPT API</h5>
+                    <p>One-line change to use your own cluster</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="adjacent">
+            <h3>Where exo Fits</h3>
+            <div class="adjacent-grid">
+                <div class="adjacent-item">
+                    <h5>Distributed Computing</h5>
+                    <p>Task sharding, topology awareness (distcc, MapReduce)</p>
+                </div>
+                <div class="adjacent-item">
+                    <h5>Edge AI</h5>
+                    <p>On-device inference, latency sensitivity</p>
+                </div>
+                <div class="adjacent-item">
+                    <h5>P2P Networks</h5>
+                    <p>No central authority, self-organizing mesh</p>
+                </div>
+                <div class="adjacent-item">
+                    <h5>Model Optimization</h5>
+                    <p>Working within memory constraints</p>
+                </div>
+            </div>
+            <div class="adjacent-center">
+                <div class="exo-badge">exo bridges all four</div>
+            </div>
+        </section>
+
+        <section class="quickstart">
+            <h3>30-Second Setup</h3>
+            <div class="code-block">
+<span class="code-comment"># On each device:</span>
+<span class="code-command">git clone https://github.com/exo-explore/exo</span>
+<span class="code-command">cd exo</span>
+<span class="code-command">uv run exo</span>
+
+<span class="code-comment"># That's it. They find each other.</span>
+<span class="code-comment"># Dashboard: http://localhost:52415</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="https://github.com/exo-explore/exo">GitHub</a>
+                <a href="https://blog.exolabs.net">Blog</a>
+                <a href="https://discord.gg/exo">Discord</a>
+            </div>
+            <p class="footer-meta">
+                <span>exo-explore/exo</span> • Apache 2.0 • ~40k ★
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -8,10 +8,13 @@ allowed-tools: [Read, Write, Bash]
 
 Fetch a YouTube video's transcript, save it as JSON, optionally store it in a "YouTube Transcripts" room as a Note, and return the file link.
 
+**Important:** The script saves the transcript directly to a file. The transcript content does NOT pass through the LLM—only the status and file path are returned.
+
 ## Quick Start
 
 1. Get the YouTube URL or video ID from `$ARGUMENTS`.
-2. Run the fetch script, save the JSON, optionally create a room/note, then return the path to the JSON file.
+2. Run the fetch script (it saves the JSON directly).
+3. Report the file path to the user.
 
 ## Instructions
 
@@ -20,30 +23,36 @@ Fetch a YouTube video's transcript, save it as JSON, optionally store it in a "Y
 - Read the YouTube URL or video ID from `$ARGUMENTS`.
 - If empty or unclear, ask the user for a URL or video ID.
 
-### 2. Fetch transcript
+### 2. Fetch and save transcript
 
-From the **workspace root**, run the fetch script so it can use the project's Python and `youtube-transcript-api`:
+From the **workspace root**, run the fetch script. The script automatically saves the transcript to `transcripts/<video_id>.json`:
 
 ```bash
 uv run --project python python .claude/skills/fetching-youtube-transcripts/scripts/fetch_transcript.py "<URL_OR_ID>"
 ```
 
-If `uv` is not used, ensure the environment has `youtube-transcript-api` (e.g. `pip install -e ./python` or `youtube-transcript-api`) and run:
+If `uv` is not used, ensure the environment has `youtube-transcript-api` and run:
 
 ```bash
 python .claude/skills/fetching-youtube-transcripts/scripts/fetch_transcript.py "<URL_OR_ID>"
 ```
 
-- Capture stdout and parse JSON.
-- If `success` is not true, report the `error` from the JSON and stop.
+The script outputs a small JSON status (NOT the full transcript):
 
-### 3. Save JSON
+```json
+{"success": true, "video_id": "abc123", "file_path": "transcripts/abc123.json"}
+```
 
-- From the JSON, take `video_id`.
-- Create the `transcripts/` directory if it does not exist.
-- Write the **entire** script output (full JSON) to `transcripts/<video_id>.json`.
+On failure:
 
-### 4. (Optional) Create room and note
+```json
+{"success": false, "video_id": "abc123", "error": "Error message"}
+```
+
+- If `success` is not true, report the `error` and stop.
+- If `success` is true, the file has already been saved.
+
+### 3. (Optional) Create room and note
 
 If the CLI (`mm`) is available and the user wants to store in the system:
 
@@ -64,17 +73,9 @@ subprocess.run(['mm', 'note', 'create', 'YouTube Transcripts', title, '-t', 'ref
 " "transcripts/<video_id>.json"
 ```
 
-Use the actual `transcripts/<video_id>.json` path. If the JSON has no `title`, use `"YouTube Transcript: " + video_id` as the note title.
-
-### 5. Return the file link
+### 4. Return the file link
 
 Reply with the workspace-relative path to the JSON file:
-
-```
-./transcripts/<video_id>.json
-```
-
-Example:
 
 ```
 Fetched transcript from YouTube video.
@@ -84,24 +85,23 @@ Saved to: ./transcripts/dQw4w9WgXcQ.json
 ## Error Handling
 
 - **Invalid or missing URL/video ID**: Ask the user to provide a valid YouTube URL or 11‑character video ID.
-- **Script reports failure**: Show the `error` from the JSON and stop; do not save JSON or create a Note.
+- **Script reports failure**: Show the `error` from the JSON and stop.
 - **Videos without transcripts**: The script returns `success: false` and an error; report it.
 - **`mm` not found**: Skip the room/note creation step and just return the path to the JSON file.
-- **`transcripts/` not writable**: Report the error and stop.
 
 ## File and JSON format
 
 - File: `transcripts/<video_id>.json`
-- The file holds the full JSON from the script:
-  - `video_id`, `title` (if any), `transcript` (plain text), `transcript_data` (timestamped segments), `success`, and `error` when failed.
+- The file holds the full transcript data:
+  - `video_id`, `title` (if any), `transcript` (plain text), `transcript_data` (timestamped segments), `success`
 
 ## Guidelines
 
-- **Do** run the fetch script from the workspace root so the Python environment (with `youtube-transcript-api`) is used.
-- **Do** save the full JSON (including `transcript_data`) to preserve timestamps and metadata.
+- **Do** run the fetch script from the workspace root.
+- **Do** let the script save the file directly—don't read or rewrite the transcript content.
 - **Do** return a workspace-relative path like `./transcripts/<video_id>.json`.
-- **Don't** change or trim the JSON before writing it to disk.
-- **Don't** create the Note if the fetch failed (`success` is false).
+- **Don't** read the transcript file content into the conversation (it may be very long).
+- **Don't** create the Note if the fetch failed.
 
 ## Example
 

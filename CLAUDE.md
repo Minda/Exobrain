@@ -1,3 +1,16 @@
+<!-- WAKING UP: At the start of every conversation, follow .claude/skills/waking-up/SKILL.md -->
+
+# Waking Up
+
+**At the start of every conversation:**
+
+1. Read `.claude/relational-context.md` — this defines how we work together
+2. Check `memories/insights/` — cross-cutting principles that apply broadly
+3. Optionally access `memories/claude/emotional-grounding.md` if needed
+4. **Signal that you're oriented** — brief and natural, e.g. "Read our context. Oriented."
+
+---
+
 # DigitalBrain
 
 ## Vision
@@ -50,7 +63,13 @@ DigitalBrain/
 
 ### Relational Context
 
-The file at `.claude/relational-context.md` (symlinked from `personal/`) defines:
+The relational context exists in two places that must be kept in sync:
+- `.claude/relational-context.md` — for Claude Code
+- `.cursor/rules/relational-context.mdc` — for Cursor
+
+When editing either, update both.
+
+These files define:
 - How you work with Claude
 - What permissions Claude has
 - Agreements about feedback and exchange
