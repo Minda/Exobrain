@@ -1,12 +1,14 @@
 ---
 name: adding-cheatsheets
-description: Add HTML cheatsheets to the cheatsheets folder, validate structure, update index, and auto-commit to GitHub. Use when user provides HTML code for a cheatsheet or says "add this cheatsheet" or "save this as a cheatsheet."
+description: Add HTML cheatsheets to the cheatsheets folder, validate structure, update index, and auto-commit to GitHub. Use getting-file-view-links to provide live URLs. Use when user provides HTML code for a cheatsheet or says "add this cheatsheet" or "save this as a cheatsheet."
 allowed-tools: [Read, Write, Edit, Bash, WebFetch]
 ---
 
 # Adding Cheatsheets Skill
 
 Add HTML cheatsheets to your DigitalBrain project's cheatsheets folder. This skill helps you save, organize, and optionally enhance HTML reference pages.
+
+**Related:** When providing live URLs for a saved cheatsheet, use the **getting-file-view-links** skill (`.claude/skills/getting-file-view-links/SKILL.md`) to give GitHub, Raw, and shareable webpage links.
 
 ## Trigger
 
@@ -119,22 +121,7 @@ Report back with:
 - ✅ Successfully pushed to GitHub
 - ✅ Ready for public sharing
 
-**Provide the live URLs:**
-
-> **Your cheatsheet is now LIVE! 🎉**
->
-> **GitHub Raw URL (already available):**
-> `https://raw.githubusercontent.com/[username]/[repo]/main/cheatsheets/[filename].html`
->
-> **To create a public shareable link:**
-> 1. Go to https://raw.githack.com/
-> 2. Paste the GitHub raw URL above
-> 3. Get the CDN URL for sharing (renders as proper webpage)
->
-> **Direct links for this cheatsheet:**
-> - GitHub: `https://github.com/[username]/[repo]/blob/main/cheatsheets/[filename].html`
-> - Raw: `https://raw.githubusercontent.com/[username]/[repo]/main/cheatsheets/[filename].html`
-> - Share via raw.githack.com for proper HTML rendering
+**Provide the live URLs:** Always use the **getting-file-view-links** skill to generate the links. Read `.claude/skills/getting-file-view-links/SKILL.md` and follow its instructions for the file path `cheatsheets/[filename].html` (GitHub URL, Raw URL, and for HTML the raw.githack.com shareable-view instructions).
 
 ## Examples
 
@@ -149,9 +136,7 @@ Response:
 4. Save to `cheatsheets/git-commands-reference.html`
 5. Update index.html with new entry
 6. Auto-commit and push to GitHub
-7. "✅ Your Git commands cheatsheet is now LIVE at:
-   - Raw: `https://raw.githubusercontent.com/[username]/DigitalBrain/main/cheatsheets/git-commands-reference.html`
-   - Use raw.githack.com to share as webpage"
+7. Use **getting-file-view-links** for `cheatsheets/git-commands-reference.html` and report the GitHub URL, Raw URL, and raw.githack.com instructions.
 
 ### Example 2: Partial Content
 

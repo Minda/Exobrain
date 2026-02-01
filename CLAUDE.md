@@ -74,6 +74,8 @@ DigitalBrain/
 ├── python/                   # Python modules
 ├── examples/                 # Templates for personal content
 ├── cheatsheets/              # Public reference materials
+├── shared/                   # Public shared content (recipe list, etc.)
+│   └── recipes/              # General recipe list with sections (Notion-synced)
 ├── plans/                    # Implementation plans
 │
 │   # Symlinks to personal/ (private content)
