@@ -1,3 +1,9 @@
+---
+name: adding-cheatsheets
+description: Add HTML cheatsheets to the cheatsheets folder, validate structure, update index, and auto-commit to GitHub. Use when user provides HTML code for a cheatsheet or says "add this cheatsheet" or "save this as a cheatsheet."
+allowed-tools: [Read, Write, Edit, Bash, WebFetch]
+---
+
 # Adding Cheatsheets Skill
 
 Add HTML cheatsheets to your DigitalBrain project's cheatsheets folder. This skill helps you save, organize, and optionally enhance HTML reference pages.
@@ -85,35 +91,50 @@ file_path = "cheatsheets/[filename].html"
 
 If `cheatsheets/index.html` exists, add an entry for the new cheatsheet.
 
-### 7. Confirm Success & Public Sharing
+### 7. Auto-Commit and Push to GitHub
 
-Report back:
-- Saved location: `cheatsheets/[filename].html`
-- File size
-- Whether it's viewable in browser
-- Any enhancements made
+**Automatically make the cheatsheet live:**
 
-### 8. Remind About Public Sharing (IMPORTANT)
+```bash
+# Stage the new files
+git add cheatsheets/[filename].html cheatsheets/index.html
 
-**Always include this reminder:**
+# Commit with descriptive message
+git commit -m "Add [title] cheatsheet
 
-> **To make this cheatsheet publicly accessible:**
+🤖 Generated with Claude Code
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# Push to GitHub
+git push origin main
+```
+
+This ensures the cheatsheet is immediately available online.
+
+### 8. Confirm Success & Provide Live URLs
+
+Report back with:
+- ✅ Saved location: `cheatsheets/[filename].html`
+- ✅ File size
+- ✅ Successfully pushed to GitHub
+- ✅ Ready for public sharing
+
+**Provide the live URLs:**
+
+> **Your cheatsheet is now LIVE! 🎉**
 >
-> Once you push this to GitHub, you can share it publicly using raw.githack.com:
+> **GitHub Raw URL (already available):**
+> `https://raw.githubusercontent.com/[username]/[repo]/main/cheatsheets/[filename].html`
 >
-> 1. Get the GitHub raw URL:
->    `https://raw.githubusercontent.com/[username]/[repo]/[branch]/cheatsheets/[filename].html`
+> **To create a public shareable link:**
+> 1. Go to https://raw.githack.com/
+> 2. Paste the GitHub raw URL above
+> 3. Get the CDN URL for sharing (renders as proper webpage)
 >
-> 2. Convert it using raw.githack.com:
->    - Go to https://raw.githack.com/
->    - Paste your raw GitHub URL
->    - Get the CDN URL for sharing
->
-> Example:
-> - GitHub raw: `https://raw.githubusercontent.com/yourusername/DigitalBrain/main/cheatsheets/exo-frontier-ai.html`
-> - Public URL: `https://rawcdn.githack.com/yourusername/DigitalBrain/[commit-hash]/cheatsheets/exo-frontier-ai.html`
->
-> The CDN URL will properly serve the HTML with correct MIME types and make it viewable as a webpage.
+> **Direct links for this cheatsheet:**
+> - GitHub: `https://github.com/[username]/[repo]/blob/main/cheatsheets/[filename].html`
+> - Raw: `https://raw.githubusercontent.com/[username]/[repo]/main/cheatsheets/[filename].html`
+> - Share via raw.githack.com for proper HTML rendering
 
 ## Examples
 
@@ -126,8 +147,11 @@ Response:
 2. Extract title: "Git Commands Reference"
 3. Generate filename: `git-commands-reference.html`
 4. Save to `cheatsheets/git-commands-reference.html`
-5. "Saved your Git commands cheatsheet to `cheatsheets/git-commands-reference.html`. You can open it directly in your browser."
-6. Include the raw.githack.com reminder for public sharing
+5. Update index.html with new entry
+6. Auto-commit and push to GitHub
+7. "✅ Your Git commands cheatsheet is now LIVE at:
+   - Raw: `https://raw.githubusercontent.com/[username]/DigitalBrain/main/cheatsheets/git-commands-reference.html`
+   - Use raw.githack.com to share as webpage"
 
 ### Example 2: Partial Content
 
@@ -137,7 +161,8 @@ Response:
 1. Wrap in full HTML structure with dark theme
 2. Add mobile viewport and basic styling
 3. Save as `css-grid-cheatsheet.html`
-4. "Created a complete HTML cheatsheet with dark theme styling and saved to `cheatsheets/css-grid-cheatsheet.html`"
+4. Update index and auto-push to GitHub
+5. "✅ Created and published CSS Grid cheatsheet with dark theme. Now live on GitHub!"
 
 ### Example 3: From URL
 
@@ -148,7 +173,8 @@ Response:
 2. Extract and validate HTML
 3. Ensure it's self-contained (inline any external CSS if needed)
 4. Save with appropriate name
-5. "Fetched and saved the cheatsheet to `cheatsheets/[name].html`. I've made it self-contained for offline viewing."
+5. Update index and auto-push to GitHub
+6. "✅ Fetched, saved, and published the cheatsheet. Made it self-contained for offline viewing. Now live on GitHub!"
 
 ## Optional Enhancements
 

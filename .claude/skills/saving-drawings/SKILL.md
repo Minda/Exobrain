@@ -1,3 +1,9 @@
+---
+name: saving-drawings
+description: Preserve ASCII diagrams in memories/drawings/ with metadata and context. Use after creating ASCII diagrams worth preserving or when user asks to save a diagram.
+allowed-tools: [Write]
+---
+
 # Saving ASCII Drawings
 
 ## Purpose

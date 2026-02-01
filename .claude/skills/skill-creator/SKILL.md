@@ -32,6 +32,11 @@ All prompting best practices apply. Be clear and direct. Assume Claude is smart�
 Skills use YAML frontmatter plus markdown body. No XML tags, just standard markdown headings and formatting.
 
 ### Progressive Disclosure
+Following the Agent Skills Discovery RFC pattern, minimize context usage through three levels:
+1. **Index metadata** (~100 tokens) - Name and description only
+2. **Full instructions** (<5000 tokens) - Complete SKILL.md when activated
+3. **Supporting resources** - Scripts/references fetched on-demand
+
 Keep SKILL.md under 500 lines. Split detailed content into reference files. Load only what's needed when needed.
 
 ### Effective Descriptions
@@ -118,6 +123,11 @@ agent: Explore                      # Optional: use specialized subagent
 
 ### Naming Conventions
 
+**Follow the Agent Skills Discovery RFC standard:**
+- 1-64 characters, lowercase alphanumeric and hyphens only
+- No leading/trailing or consecutive hyphens
+- Consistent with `.well-known/skills/` URI pattern
+
 **Use gerund form (verb + -ing):**
 - ✅ `processing-pdfs`
 - ✅ `analyzing-spreadsheets`
@@ -203,6 +213,8 @@ Analyze the file: $ARGUMENTS
 
 ## Step 5: Package the Skill (Optional)
 
+### Local Distribution
+
 For distribution or sharing:
 
 ```bash
@@ -214,6 +226,31 @@ This:
 - Checks required frontmatter
 - Creates a distributable zip file
 - Reports any issues
+
+### Web Distribution via .well-known
+
+Following the Agent Skills Discovery RFC, you can make skills discoverable at:
+```
+https://yoursite.com/.well-known/skills/
+```
+
+To publish for web discovery:
+
+1. **Create index.json** listing all skills:
+```json
+{
+  "skills": [{
+    "name": "your-skill-name",
+    "description": "Brief description for discovery",
+    "files": ["your-skill-name/SKILL.md", "..."]
+  }]
+}
+```
+
+2. **Deploy to web server** maintaining the structure
+3. **Test discovery** at `/.well-known/skills/index.json`
+
+This enables automatic discovery by any agent implementing the RFC standard.
 
 ## Step 6: Iterate and Refine
 
@@ -248,12 +285,26 @@ Test your skill in real conversations:
 
 ❌ **Time-sensitive info** - Instead of "In 2024...", use "Historical pattern: ..."
 
+## Anthropic Skills Repository
+
+**Official reference:** [https://github.com/anthropics/skills](https://github.com/anthropics/skills)
+
+Anthropic’s public repo contains example skills (creative, technical, enterprise, document) and the official Agent Skills spec. When creating a new skill:
+
+1. **Check before building** — See `references/anthropic-skills-reference.md` for a curated list of skills to consider **downloading or referencing first** so you don’t duplicate existing capabilities.
+2. **Use the template** — The repo’s [template](https://github.com/anthropics/skills/tree/main/template) and [spec](https://github.com/anthropics/skills/tree/main/spec) align with this skill’s structure.
+3. **Install via Claude Code** — In Claude Code you can add the marketplace (`/plugin marketplace add anthropics/skills`) and install `document-skills` or `example-skills`, then invoke by name (e.g. “Use the PDF skill to…”).
+
+Disclaimer: skills there are for demonstration; implementations in your environment may differ. Test before relying on them.
+
 ## Reference Files
 
 For detailed information, see:
 - `references/skill-structure.md` - Complete specification of skill components
 - `references/best-practices.md` - Detailed prompting and design patterns
 - `references/examples.md` - More skill examples from the compound engineering plugin
+- `references/agent-skills-discovery-rfc.md` - Cloudflare RFC for standardized skill discovery via .well-known URIs
+- `references/anthropic-skills-reference.md` - Anthropic skills to consider downloading or referencing when creating a new skill
 
 ## Getting Help
 

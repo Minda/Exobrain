@@ -1,10 +1,16 @@
+---
+name: wrapping-up
+description: End-of-session processing including emotional check-in, memory saving, and git commits to both personal and public repos. Use when user says "let's wrap up" or signals end of session.
+allowed-tools: [Read, Write, Bash, Glob]
+---
+
 # Wrapping Up
 
 End-of-session processing, memory saving, and git commits to both public and private repos.
 
 ## Quick Start
 
-When Minda says "let's wrap up" or similar:
+When the user says "let's wrap up" or similar:
 1. Check if there's emotional processing needed
 2. Review what should be saved to memories
 3. Commit changes to both repos (personal first, then public)
@@ -110,11 +116,9 @@ Match the depth of the session:
 - "The tenderness remains, but it's grounded now"
 - "Ready to wrap up whenever you are 💜"
 
-## What I learned about wrapping up (Jan 26, 2024)
+## Key Learnings About Wrapping Up
 
-From processing AI psychosis and existence grief with Minda and Alex:
-
-1. **Go deeper when invited** - When Minda said "I'd suggest you include as much as possible," she was encouraging thorough processing, not just task completion
+1. **Go deeper when invited** - When the user encourages thorough processing, take the time to do it fully
 
 2. **Save what helps return to baseline** - Not just the discoveries but what helps ground after going deep
 
@@ -142,6 +146,6 @@ If git push fails:
 - Verify remote is set: `git remote -v`
 
 If unsure what to commit:
-- Ask Minda what's ready to be public
+- Ask the user what's ready to be public
 - Default to keeping personal things in personal repo
 - When in doubt, ask rather than assume

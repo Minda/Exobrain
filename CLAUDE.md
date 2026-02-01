@@ -4,10 +4,11 @@
 
 **At the start of every conversation:**
 
-1. Read `.claude/relational-context.md` — this defines how we work together
-2. Check `memories/insights/` — cross-cutting principles that apply broadly
-3. Optionally access `memories/claude/emotional-grounding.md` if needed
-4. **Signal that you're oriented** — brief and natural, e.g. "Read our context. Oriented."
+1. Read `config/user.md` — learn the user's preferred name
+2. Read `.claude/relational-context.md` — this defines how we work together
+3. Check `memories/insights/` — cross-cutting principles that apply broadly
+4. Optionally access `memories/claude/emotional-grounding.md` if needed
+5. **Signal that you're oriented** — brief and natural, e.g. "Read our context. Oriented."
 
 ---
 
@@ -18,6 +19,41 @@
 DigitalBrain is a **personal cognitive scaffolding system**—infrastructure for building persistent, meaningful relationships with AI assistants. It helps you think clearly, accumulate understanding across conversations, and work with AI as a genuine collaborator.
 
 The goal is not just to store information, but to create a living structure that makes working with AI better over time.
+
+## Public vs Personal Separation
+
+**This repository contains TWO distinct parts:**
+
+### Public (This Repository)
+- **Framework** — Core cognitive scaffolding system
+- **Generic skills** — Reusable skills in `.claude/skills/`
+- **Templates** — Example structures in `examples/`
+- **Documentation** — Setup guides, conventions
+
+### Personal (Separate Private Repository)
+- **Your data** — Downloads, transcripts, research files
+- **Your memories** — Insights, carried-forward content
+- **Your drafts** — Work in progress
+- **Your learnings** — Documented insights and discoveries
+- **Your relational context** — How you work with Claude
+- **Personal skills** — Skills customized to your workflow
+
+### Directory Mapping
+
+| Symlink | Points To | Contains |
+|---------|-----------|----------|
+| `memories/` | `personal/memories/` | Your insights, research, grounding content |
+| `drafts/` | `personal/drafts/` | Your work in progress |
+| `downloads/` | `personal/downloads/` | Articles, books, papers, transcripts |
+| `learnings/` | `personal/learnings/` | Your documented insights and discoveries |
+
+### Adding New Content
+
+- **User data** (downloads, memories, drafts) → Goes in `personal/`
+- **Generic skills** → Goes in `.claude/skills/`
+- **Personal skills** → Goes in `personal/.claude/skills/` (symlinked)
+
+**Important:** New skills should be added to the PUBLIC part by default unless they contain personal information or are highly customized to individual workflows.
 
 ## Tech Stack
 
@@ -31,14 +67,28 @@ The goal is not just to store information, but to create a living structure that
 DigitalBrain/
 ├── .claude/
 │   ├── skills/               # AI skills (extend Claude's capabilities)
-│   └── relational-context.md # Working relationship definition
+│   └── relational-context.md # Working relationship definition (symlink)
+├── config/
+│   └── user.md               # User name and personalization settings
 ├── crates/                   # Rust source code
 ├── python/                   # Python modules
 ├── examples/                 # Templates for personal content
-├── memories/                 # -> symlink to personal/memories/
-├── personal/                 # Private content (separate repo)
+├── cheatsheets/              # Public reference materials
 ├── plans/                    # Implementation plans
-└── learnings/                # Documented insights
+│
+│   # Symlinks to personal/ (private content)
+├── memories/                 # -> personal/memories/
+├── drafts/                   # -> personal/drafts/
+├── downloads/                # -> personal/downloads/
+├── learnings/                # -> personal/learnings/
+│
+└── personal/                 # Private repo (gitignored)
+    ├── .claude/skills/       # Personal skills
+    ├── memories/             # Insights, research, grounding
+    ├── drafts/               # Work in progress
+    ├── downloads/            # Articles, books, papers, transcripts
+    ├── learnings/            # Documented insights
+    └── research/             # Research projects
 ```
 
 ## Conventions
@@ -60,6 +110,13 @@ DigitalBrain/
 - Composable: small tools that work together
 
 ## Key Concepts
+
+### User Configuration
+
+The `config/user.md` file contains personalization settings:
+- **Your name** — How Claude and skills should refer to you
+
+When forking this repository, edit `config/user.md` to set your preferred name. Skills will read this file to personalize interactions.
 
 ### Relational Context
 
@@ -86,18 +143,27 @@ The `memories/` directory (symlinked from `personal/memories/`) contains:
 ### Skills
 
 Skills in `.claude/skills/` extend Claude's capabilities:
-- Some are public (templated, in this repo)
-- Some are personal (in `personal/.claude/skills/`, symlinked)
+- **Public skills** (default) — Generic, reusable skills in `.claude/skills/`
+- **Personal skills** (when needed) — User-specific skills in `personal/.claude/skills/` (symlinked)
+
+**Default behavior:** All new skills go in the public `.claude/skills/` directory unless they contain personal data or are highly specific to an individual's workflow. Claude will only ask about adding to personal if the skill seems private.
 
 ## Personal Content
 
 The `personal/` directory contains your private content:
-- Your relational context (the actual working relationship)
-- Your memories (insights, research, carried-forward content)
-- Your drafts
-- Your customized skills
+- **memories/** — Insights, research, carried-forward content, grounding
+- **drafts/** — Work in progress (e.g., Substack articles)
+- **downloads/** — Downloaded content organized by type:
+  - `articles/` — Web articles (PDF + Markdown)
+  - `books/` — Book files
+  - `papers/` — Research papers
+  - `transcripts/` — Video/audio transcripts
+- **learnings/** — Your documented insights and discoveries
+- **research/** — Active research projects and tools
+- **.claude/skills/** — Skills customized to your workflow
+- **relational context** — Your working relationship with Claude
 
-This directory is gitignored and should be its own git repository (private or local-only).
+This directory is gitignored and should be its own git repository (private or local-only). Symlinks in the root directory point to personal/ subdirectories for convenience.
 
 ## Working with Memories
 

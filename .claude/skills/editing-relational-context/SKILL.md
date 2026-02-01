@@ -25,7 +25,7 @@ The relational context defines how we work together. It exists in two places tha
 
 ```yaml
 ---
-description: Working relationship with Minda - agreements, permissions, and ways of working
+description: Working relationship - agreements, permissions, and ways of working
 alwaysApply: true
 ---
 ```

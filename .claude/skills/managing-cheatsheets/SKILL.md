@@ -1,3 +1,9 @@
+---
+name: managing-cheatsheets
+description: Maintain the cheatsheets index and organize cheatsheets into categories. Use when adding a new cheatsheet to the collection, creating categories, or reorganizing the index.
+allowed-tools: [Read, Edit]
+---
+
 # Managing Cheatsheets
 
 Maintain the cheatsheets index and organize cheatsheets into categories.

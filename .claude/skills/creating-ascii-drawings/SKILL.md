@@ -1,3 +1,9 @@
+---
+name: creating-ascii-drawings
+description: Create visual ASCII diagrams to capture complex conceptual relationships. Use when user asks for visual representation, complex relationships need clarification, or creating memorable summaries of concepts.
+allowed-tools: []
+---
+
 # Creating ASCII Drawings
 
 ## Purpose
@@ -127,7 +133,7 @@ The goal is information density without sacrificing clarity. One well-placed emo
 - Is it simple enough to remember?
 - Do emojis enhance or distract from understanding?
 
-## Connection to Minda's Work
+## Why ASCII Diagrams Matter
 ASCII diagrams serve as cognitive anchors—visual representations that can be carried forward across conversations. They make abstract philosophical tensions concrete and help pattern recognition across domains.
 
 *Remember: The goal isn't artistic perfection but conceptual clarity. A simple, clear diagram beats a complex, beautiful one.*

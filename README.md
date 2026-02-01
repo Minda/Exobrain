@@ -22,26 +22,42 @@ git clone https://github.com/yourusername/DigitalBrain.git
 cd DigitalBrain
 ```
 
-### 2. Create your personal content
+### 2. Personalize your instance
 
 ```bash
-# Create personal directory (this will be your private repo)
-mkdir -p personal/.claude/skills personal/.cursor/rules personal/memories/claude personal/memories/insights personal/memories/research personal/drafts
+# Edit config/user.md and replace [Your Name] with your name
+# This name will be used by skills and Claude to refer to you
+```
+
+### 3. Create your personal content
+
+```bash
+# Create personal directory structure (this will be your private repo)
+mkdir -p personal/.claude/skills \
+         personal/.cursor/rules \
+         personal/memories/{claude,insights,research} \
+         personal/drafts \
+         personal/downloads/{articles,books,papers,transcripts} \
+         personal/learnings \
+         personal/research
 
 # Copy example files as starting points
 cp examples/relational-context.example.md personal/.claude/relational-context.md
 cp -r examples/memories/* personal/memories/
 ```
 
-### 3. Create symlinks
+### 4. Create symlinks
 
 ```bash
 # Link personal content to expected locations
 ln -s personal/memories memories
 ln -s personal/drafts drafts
+ln -s personal/downloads downloads
+ln -s personal/learnings learnings
 ln -s personal/.claude/relational-context.md .claude/relational-context.md
 
 # For Cursor rules (create with frontmatter)
+mkdir -p personal/.cursor/rules
 echo '---
 description: Relational constitution for working relationship
 alwaysApply: true
@@ -50,7 +66,7 @@ cat personal/.claude/relational-context.md >> personal/.cursor/rules/relational-
 ln -s personal/.cursor/rules/relational-context.mdc .cursor/rules/relational-context.mdc
 ```
 
-### 4. Initialize personal repo (optional)
+### 5. Initialize personal repo (optional)
 
 ```bash
 cd personal
@@ -60,7 +76,7 @@ git commit -m "Initial personal content"
 # Optionally push to a private GitHub repo
 ```
 
-### 5. Customize your relational context
+### 6. Customize your relational context
 
 Edit `personal/.claude/relational-context.md` to reflect how you want to work with Claude:
 
@@ -74,7 +90,8 @@ Edit `personal/.claude/relational-context.md` to reflect how you want to work wi
 ```
 DigitalBrain/
 ├── .claude/
-│   ├── skills/                  # AI skills (templated, public)
+│   ├── skills/                  # AI skills (public, reusable)
+│   │   ├── download-url/
 │   │   ├── fetching-youtube-transcripts/
 │   │   ├── importing-conversations/
 │   │   ├── skill-creator/
@@ -83,28 +100,40 @@ DigitalBrain/
 ├── .cursor/
 │   └── rules/
 │       └── relational-context.mdc  # -> symlink to personal/
+├── config/
+│   └── user.md                  # Your name and personalization settings
 ├── crates/                      # Rust infrastructure
 ├── python/                      # Python tools
 ├── examples/                    # Templates for personal content
-│   ├── relational-context.example.md
-│   └── memories/
-├── memories/                    # -> symlink to personal/memories/
-├── drafts/                      # -> symlink to personal/drafts/
+├── cheatsheets/                 # Public reference materials
+├── plans/                       # Implementation plans
 ├── CLAUDE.md                    # Project documentation
 ├── README.md                    # This file
+│
+│   # Symlinks to personal/ (private content)
+├── memories/                    # -> personal/memories/
+├── drafts/                      # -> personal/drafts/
+├── downloads/                   # -> personal/downloads/
+├── learnings/                   # -> personal/learnings/
 │
 └── personal/                    # Your private content (separate git repo)
     ├── .claude/
     │   ├── relational-context.md
     │   └── skills/              # Your customized skills
-    ├── .cursor/
-    │   └── rules/
+    ├── .cursor/rules/
     ├── memories/
     │   ├── carried-forward.md
-    │   ├── claude/
-    │   ├── insights/
-    │   └── research/
-    └── drafts/
+    │   ├── claude/              # Emotional grounding
+    │   ├── insights/            # Cross-cutting principles
+    │   └── research/            # Topic deep dives
+    ├── drafts/                  # Work in progress
+    ├── downloads/               # Downloaded content
+    │   ├── articles/
+    │   ├── books/
+    │   ├── papers/
+    │   └── transcripts/
+    ├── learnings/               # Documented insights
+    └── research/                # Active research projects
 ```
 
 ## Core Concepts

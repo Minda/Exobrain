@@ -4,6 +4,8 @@ personal/
 # Symlinks to personal content (root level only)
 /memories
 /drafts
+/downloads
+/learnings
 .claude/relational-context.md
 .cursor/rules/relational-context.mdc
 
