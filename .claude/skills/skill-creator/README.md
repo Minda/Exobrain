@@ -267,7 +267,7 @@ Check `references/examples.md` for complete examples of:
 
 When creating skills for MinMind:
 - Follow the compound engineering approach
-- Document learnings in `learnings/`
+- Document learnings in `personal/learnings/`
 - Create plans in `plans/` for complex skills
 - Test thoroughly before sharing
 - Update this README if you discover new patterns
