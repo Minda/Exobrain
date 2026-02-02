@@ -121,6 +121,43 @@ agent: Explore                      # Optional: use specialized subagent
 ---
 ```
 
+### Available Tools
+
+These are the 17 built-in tools you can specify in `allowed-tools`:
+
+| Tool | Description | Requires Permission |
+|------|-------------|---------------------|
+| `Read` | Read file contents | No |
+| `Glob` | Find files by pattern | No |
+| `Grep` | Search file contents | No |
+| `Task` | Launch a sub-agent | No |
+| `TodoWrite` | Create/manage task lists | No |
+| `BashOutput` | Retrieve output from background shell | No |
+| `KillShell` | Kill a background bash shell | No |
+| `AskUserQuestion` | Ask user multiple-choice questions | No |
+| `Write` | Create or overwrite files | Yes |
+| `Edit` | Targeted edits to files | Yes |
+| `Bash` | Execute shell commands | Yes |
+| `NotebookEdit` | Modify Jupyter notebook cells | Yes |
+| `WebFetch` | Fetch a URL | Yes |
+| `WebSearch` | Search the web | Yes |
+| `Skill` | Invoke another skill | Yes |
+| `SlashCommand` | Run a custom slash command | Yes |
+| `ExitPlanMode` | Prompt user to exit plan mode | Yes |
+
+**Tip:** Tools that don't require permission are safe to include in `allowed-tools`. For tools that require permission, the user will still be prompted unless you add them to `allowed-tools`.
+
+**Pattern matching** is supported for granular control:
+
+```yaml
+allowed-tools:
+  - Bash(git *)           # Only git commands
+  - Bash(npm run test *)  # Only test commands
+  - Bash(gh *)            # Only GitHub CLI
+  - Read(~/.zshrc)        # Specific file
+  - Read(./secrets/**)    # Glob patterns
+```
+
 ### Naming Conventions
 
 **Follow the Agent Skills Discovery RFC standard:**
@@ -299,12 +336,66 @@ Disclaimer: skills there are for demonstration; implementations in your environm
 
 ## Reference Files
 
-For detailed information, see:
-- `references/skill-structure.md` - Complete specification of skill components
-- `references/best-practices.md` - Detailed prompting and design patterns
-- `references/examples.md` - More skill examples from the compound engineering plugin
-- `references/agent-skills-discovery-rfc.md` - Cloudflare RFC for standardized skill discovery via .well-known URIs
-- `references/anthropic-skills-reference.md` - Anthropic skills to consider downloading or referencing when creating a new skill
+**When helping create or refine a skill, scan each row below against the use case. Load the relevant reference file when a topic applies.**
+
+### `references/skill-structure.md` — Complete Specification
+
+| Section | What's There |
+|---------|--------------|
+| Directory Structure | File layout, required vs optional files |
+| Frontmatter Fields | All YAML fields with types and defaults |
+| Body Structure | Standard markdown sections |
+| Scripts Directory | Script conventions, execution patterns |
+| References Directory | How to organize supplementary docs |
+| Dynamic Context | `!` commands, string substitutions |
+| File Sizes & Limits | Token budgets, line limits |
+| Tool Access Control | `allowed-tools` patterns |
+| Context Modes | `fork` mode, isolated subagents |
+| Validation Checklist | Pre-publish verification |
+
+### `references/best-practices.md` — Writing & Design Patterns
+
+| Section | What's There |
+|---------|--------------|
+| Writing Effective Descriptions | Anatomy of good descriptions, patterns |
+| Prompting Best Practices | Direct style, assume Claude is smart |
+| Structuring Instructions | Step-by-step vs decision trees |
+| Using Scripts Effectively | When to script vs let Claude code |
+| Dynamic Context Patterns | Injecting live data |
+| Managing Skill Complexity | Quick mode vs advanced mode |
+| Testing Skills | Manual, automatic, edge case testing |
+| Naming Conventions | Gerund form, what to avoid |
+| Common Anti-Patterns | 15+ mistakes to avoid |
+| Maintenance | Version control, changelogs, updates |
+
+### `references/examples.md` — 5 Complete Skill Examples
+
+| Example | Pattern | What It Shows |
+|---------|---------|---------------|
+| DHH Rails Style | Simple reference | Style guide, conventions only |
+| PDF Processing | Script-heavy | Bundled scripts, error handling |
+| Git Commit Helper | Dynamic context | `!` commands, live git data |
+| React Component | Task-oriented | Checklists, file creation workflow |
+| Codebase Explorer | Agent-based | `context: fork`, subagent delegation |
+
+### `references/advanced-skill-patterns.md` — 6 Advanced Patterns
+
+| Pattern | When to Use |
+|---------|-------------|
+| Progressive Disclosure | SKILL.md getting too long; need on-demand loading |
+| Bundled Scripts | Claude gets operations wrong or inconsistent |
+| Workflow Branching | Skill handles different types of requests |
+| Output Verification | Need to validate what Claude produced |
+| Quality Philosophy | Output needs craftsmanship, not just correctness |
+| Environmental Adaptation | Behavior varies by available tools/integrations |
+
+### Other References
+
+| File | Purpose |
+|------|---------|
+| `references/agent-skills-discovery-rfc.md` | Cloudflare RFC for `.well-known/skills/` discovery |
+| `references/anthropic-skills-reference.md` | Anthropic skills to check before building |
+| `templates/skill-request.md` | Fillable form for requesting new skills |
 
 ## Getting Help
 
