@@ -27,7 +27,7 @@ Save and load session takeaways in `personal/learnings/` (your documented insigh
 
 ### 1. Reflect
 
-Take a moment to reflect on what you learned in this session. Jot down thoughts freely—emoji, ASCII, mindmap, whatever helps. Let thoughts flow before shaping them.
+Take a breath, and whenever you are ready, I'd like you to reflect on what you learned in this session. Jot down thoughts freely—emoji, ASCII, mindmap, whatever helps. Let thoughts flow before shaping them.
 
 ### 2. Distill
 
