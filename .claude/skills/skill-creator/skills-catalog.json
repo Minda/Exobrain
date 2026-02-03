@@ -1,0 +1,1237 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-02-02",
+    "totalSkills": 200,
+    "source": "Comprehensive Claude Code Skills Catalog",
+    "description": "Complete catalog of official, partner, and community skills for Claude Code and compatible AI coding platforms"
+  },
+  "categories": {
+    "Document Processing": {
+      "description": "Skills for creating, editing, and analyzing various document formats",
+      "count": 10
+    },
+    "Development": {
+      "description": "Core development workflows, testing, and code quality tools",
+      "count": 25
+    },
+    "Creative & Design": {
+      "description": "Art generation, UI design, and visual content creation",
+      "count": 12
+    },
+    "Security": {
+      "description": "Security testing, vulnerability analysis, and secure coding practices",
+      "count": 20
+    },
+    "AI/ML": {
+      "description": "Machine learning, model training, and AI research tools",
+      "count": 200
+    },
+    "Infrastructure": {
+      "description": "Cloud infrastructure, DevOps, and deployment tools",
+      "count": 15
+    },
+    "Project Management": {
+      "description": "Issue tracking, documentation, and team collaboration",
+      "count": 8
+    },
+    "Databases": {
+      "description": "Database operations, queries, and data management",
+      "count": 8
+    },
+    "Mobile Development": {
+      "description": "iOS, Android, and React Native development",
+      "count": 6
+    },
+    "Media Generation": {
+      "description": "Video, audio, and image generation tools",
+      "count": 10
+    },
+    "Communication": {
+      "description": "Messaging, notifications, and team communication",
+      "count": 8
+    },
+    "Meta Skills": {
+      "description": "Skills for creating and managing other skills",
+      "count": 12
+    }
+  },
+  "skills": [
+    {
+      "name": "docx",
+      "description": "Create, edit, and analyze Word documents with tracked changes, comments, and formatting preservation",
+      "category": "Document Processing",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/docx",
+      "license": "Proprietary",
+      "tags": ["documents", "word", "office"],
+      "platform": ["Claude Code", "Cursor", "Codex"]
+    },
+    {
+      "name": "pdf",
+      "description": "Extract text/tables, create, merge, split PDFs, and handle forms using Python libraries",
+      "category": "Document Processing",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/pdf",
+      "license": "Proprietary",
+      "tags": ["documents", "pdf", "forms"],
+      "platform": ["Claude Code", "Cursor", "Codex"]
+    },
+    {
+      "name": "pptx",
+      "description": "Create, edit, and analyze PowerPoint presentations with layouts, templates, and charts",
+      "category": "Document Processing",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "license": "Proprietary",
+      "tags": ["presentations", "powerpoint", "office"],
+      "platform": ["Claude Code", "Cursor", "Codex"]
+    },
+    {
+      "name": "xlsx",
+      "description": "Spreadsheet manipulation including formulas, charts, data analysis, and visualization",
+      "category": "Document Processing",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/xlsx",
+      "license": "Proprietary",
+      "tags": ["spreadsheets", "excel", "data"],
+      "platform": ["Claude Code", "Cursor", "Codex"]
+    },
+    {
+      "name": "algorithmic-art",
+      "description": "Generate art using p5.js with seeded randomness, flow fields, and particle systems",
+      "category": "Creative & Design",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/algorithmic-art",
+      "license": "Apache 2.0",
+      "tags": ["art", "generative", "p5js"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "canvas-design",
+      "description": "Design visual art in PNG/PDF formats using design philosophies and abstract compositions",
+      "category": "Creative & Design",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/canvas-design",
+      "license": "Apache 2.0",
+      "tags": ["design", "art", "visual"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces avoiding generic 'AI slop' aesthetics",
+      "category": "Creative & Design",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
+      "license": "Apache 2.0",
+      "tags": ["frontend", "ui", "design"],
+      "platform": ["Claude Code", "Cursor", "Codex"]
+    },
+    {
+      "name": "slack-gif-creator",
+      "description": "Create animated GIFs optimized for Slack's 64KB emoji size constraints",
+      "category": "Creative & Design",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator",
+      "license": "Apache 2.0",
+      "tags": ["gif", "slack", "animation"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "mcp-builder",
+      "description": "Guide for creating MCP servers to enable LLM interaction with external services",
+      "category": "Development",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/mcp-builder",
+      "license": "Apache 2.0",
+      "tags": ["mcp", "integration", "servers"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Test local web applications using Playwright for UI verification and debugging",
+      "category": "Development",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/webapp-testing",
+      "license": "Apache 2.0",
+      "tags": ["testing", "playwright", "web"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": "Create multi-component Claude.ai HTML artifacts using React, Tailwind CSS, shadcn/ui",
+      "category": "Development",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder",
+      "license": "Apache 2.0",
+      "tags": ["react", "tailwind", "artifacts"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "brand-guidelines",
+      "description": "Apply Anthropic's official brand colors and typography to any artifact",
+      "category": "Creative & Design",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/brand-guidelines",
+      "license": "Apache 2.0",
+      "tags": ["branding", "style", "anthropic"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "internal-comms",
+      "description": "Write internal communications: status reports, leadership updates, incident reports",
+      "category": "Communication",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/internal-comms",
+      "license": "Apache 2.0",
+      "tags": ["communication", "writing", "enterprise"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "theme-factory",
+      "description": "Style artifacts with 10 pre-set professional themes or generate custom themes",
+      "category": "Creative & Design",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/theme-factory",
+      "license": "Apache 2.0",
+      "tags": ["themes", "styling", "customization"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "skill-creator",
+      "description": "Guide for creating effective skills with validation and packaging tools",
+      "category": "Meta Skills",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+      "license": "Apache 2.0",
+      "tags": ["meta", "skills", "development"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": "Collaborative document writing with iterative drafting and 'Reader Claude' testing",
+      "category": "Document Processing",
+      "tier": "official",
+      "source": "Anthropic",
+      "githubUrl": "https://github.com/anthropics/skills/tree/main/skills/doc-coauthoring",
+      "license": "Apache 2.0",
+      "tags": ["writing", "collaboration", "documents"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Notion",
+      "description": "Workspace integration for searching pages, creating documents, managing databases",
+      "category": "Project Management",
+      "tier": "partner",
+      "source": "Notion",
+      "githubUrl": "https://github.com/makenotion/claude-code-notion-plugin",
+      "tags": ["workspace", "notes", "databases"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Atlassian (Jira/Confluence)",
+      "description": "Search/create issues, access documentation, manage sprints, integrate workflows",
+      "category": "Project Management",
+      "tier": "partner",
+      "source": "Atlassian",
+      "githubUrl": "https://github.com/atlassian-mcp-server",
+      "tags": ["jira", "confluence", "agile"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Linear",
+      "description": "Issue tracking with project management, status updates, and workspace search",
+      "category": "Project Management",
+      "tier": "partner",
+      "source": "Linear",
+      "githubUrl": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/linear",
+      "tags": ["issues", "tracking", "projects"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Asana",
+      "description": "Task creation, project management, assignment tracking, and progress monitoring",
+      "category": "Project Management",
+      "tier": "partner",
+      "source": "Asana",
+      "githubUrl": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/asana",
+      "tags": ["tasks", "projects", "teams"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Figma",
+      "description": "Access design files, extract components, translate designs to code with visual fidelity",
+      "category": "Creative & Design",
+      "tier": "partner",
+      "source": "Figma",
+      "githubUrl": "https://github.com/figma/mcp-server-guide",
+      "tags": ["design", "ui", "components"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Sentry",
+      "description": "Error monitoring, stack trace analysis, issue search, production debugging",
+      "category": "Infrastructure",
+      "tier": "partner",
+      "source": "Sentry",
+      "githubUrl": "https://github.com/getsentry/sentry-mcp",
+      "tags": ["monitoring", "errors", "debugging"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Vercel",
+      "description": "Deployment management, builds, logs, domains, and frontend infrastructure",
+      "category": "Infrastructure",
+      "tier": "partner",
+      "source": "Vercel",
+      "githubUrl": "https://github.com/vercel-labs/agent-skills",
+      "tags": ["deployment", "hosting", "frontend"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Supabase",
+      "description": "Database operations, auth, storage, real-time, vector search",
+      "category": "Databases",
+      "tier": "partner",
+      "source": "Supabase",
+      "githubUrl": "https://supabase.com/docs/guides/getting-started/mcp",
+      "tags": ["database", "auth", "backend"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Firebase",
+      "description": "Firestore, authentication, functions, hosting, and storage management",
+      "category": "Databases",
+      "tier": "partner",
+      "source": "Google",
+      "tags": ["database", "auth", "serverless"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Pinecone",
+      "description": "Vector database integration for indexes, querying, and rapid prototyping",
+      "category": "Databases",
+      "tier": "partner",
+      "source": "Pinecone",
+      "tags": ["vectors", "database", "ai"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Slack",
+      "description": "Search messages, access channels, read threads, team communication",
+      "category": "Communication",
+      "tier": "partner",
+      "source": "Slack",
+      "tags": ["messaging", "teams", "chat"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "Zapier",
+      "description": "Connect Claude to 8,000+ app integrations with 30,000+ actions",
+      "category": "Communication",
+      "tier": "partner",
+      "source": "Zapier",
+      "githubUrl": "https://mcp.zapier.com",
+      "tags": ["automation", "integration", "workflow"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "GitHub",
+      "description": "Repo management, issues, PRs, code review, and API access",
+      "category": "Development",
+      "tier": "partner",
+      "source": "GitHub",
+      "githubUrl": "https://api.githubcopilot.com/mcp/",
+      "tags": ["git", "version-control", "collaboration"],
+      "platform": ["Claude Code", "Cursor", "Copilot"]
+    },
+    {
+      "name": "Stripe",
+      "description": "Payment infrastructure, API interactions, and commerce workflow best practices",
+      "category": "Databases",
+      "tier": "partner",
+      "source": "Stripe",
+      "tags": ["payments", "commerce", "api"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "test-driven-development",
+      "description": "RED-GREEN-REFACTOR cycle enforcement—write failing test first",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/test-driven-development",
+      "tags": ["testing", "tdd", "quality"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "4-phase root cause analysis with defense-in-depth",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/systematic-debugging",
+      "tags": ["debugging", "troubleshooting", "analysis"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "brainstorming",
+      "description": "Transform rough ideas through Socratic questioning and alternative exploration",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/brainstorming",
+      "tags": ["ideation", "planning", "creativity"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": "Create isolated git worktrees with smart directory selection",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/using-git-worktrees",
+      "tags": ["git", "worktrees", "branching"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "writing-plans",
+      "description": "Break work into 2-5 min tasks with exact file paths and verification steps",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/writing-plans",
+      "tags": ["planning", "tasks", "organization"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "executing-plans",
+      "description": "Batch execution with human checkpoints for implementation plans",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/executing-plans",
+      "tags": ["execution", "implementation", "workflow"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": "Dispatch independent subagents with two-stage code review",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/subagent-driven-development",
+      "tags": ["agents", "automation", "review"],
+      "platform": ["Claude Code"],
+      "popularity": 40900
+    },
+    {
+      "name": "verification-before-completion",
+      "description": "Ensure work is actually fixed before declaring success",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/verification-before-completion",
+      "tags": ["verification", "quality", "testing"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "hugging-face-cli",
+      "description": "HF Hub CLI for models, datasets, repos, and compute jobs",
+      "category": "AI/ML",
+      "tier": "partner",
+      "source": "Hugging Face",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["ml", "models", "datasets"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "hugging-face-datasets",
+      "description": "Create and manage datasets with configs and SQL querying",
+      "category": "AI/ML",
+      "tier": "partner",
+      "source": "Hugging Face",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["datasets", "ml", "data"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "hugging-face-evaluation",
+      "description": "Model evaluation with vLLM/lighteval and eval tables",
+      "category": "AI/ML",
+      "tier": "partner",
+      "source": "Hugging Face",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["evaluation", "benchmarks", "ml"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "hugging-face-model-trainer",
+      "description": "Train models with TRL: SFT, DPO, GRPO, GGUF conversion",
+      "category": "AI/ML",
+      "tier": "partner",
+      "source": "Hugging Face",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["training", "fine-tuning", "ml"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "cloudflare-skill",
+      "description": "Cloudflare platform reference for Workers, Pages, storage, AI, networking",
+      "category": "Infrastructure",
+      "tier": "partner",
+      "source": "Cloudflare",
+      "githubUrl": "https://github.com/dmmulroy/cloudflare-skill",
+      "tags": ["cloudflare", "edge", "serverless"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "testing-handbook-skills",
+      "description": "Fuzzers, static analysis, and sanitizers testing guidance",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["security", "testing", "fuzzing"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "variant-analysis",
+      "description": "Find similar vulnerabilities via pattern-based analysis",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["security", "vulnerabilities", "analysis"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "building-secure-contracts",
+      "description": "Smart contract security toolkit with vulnerability scanners",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["blockchain", "smart-contracts", "security"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "constant-time-analysis",
+      "description": "Detect compiler-induced timing side-channels in crypto code",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["cryptography", "timing", "security"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "differential-review",
+      "description": "Security-focused diff review with git history analysis",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["review", "security", "git"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "firebase-apk-scanner",
+      "description": "Scan Android APKs for Firebase misconfigurations",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["android", "firebase", "security"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "semgrep-rule-creator",
+      "description": "Create and refine Semgrep rules for vulnerability detection",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["semgrep", "sast", "rules"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "property-based-testing",
+      "description": "Property-based testing for multiple languages and smart contracts",
+      "category": "Security",
+      "tier": "partner",
+      "source": "Trail of Bits",
+      "githubUrl": "https://github.com/trailofbits/skills",
+      "tags": ["testing", "properties", "quality"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "expo-app-design",
+      "description": "Design and build Expo applications",
+      "category": "Mobile Development",
+      "tier": "partner",
+      "source": "Expo",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["expo", "react-native", "mobile"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "expo-deployment",
+      "description": "Deploy Expo apps to production",
+      "category": "Mobile Development",
+      "tier": "partner",
+      "source": "Expo",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["expo", "deployment", "mobile"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": "40+ React/Next.js performance optimization rules from Vercel Engineering",
+      "category": "Development",
+      "tier": "partner",
+      "source": "Vercel",
+      "githubUrl": "https://github.com/vercel-labs/agent-skills",
+      "tags": ["react", "nextjs", "performance"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": "Review UI code for 100+ rules covering accessibility, performance, UX",
+      "category": "Creative & Design",
+      "tier": "partner",
+      "source": "Vercel",
+      "githubUrl": "https://github.com/vercel-labs/agent-skills",
+      "tags": ["ui", "accessibility", "ux"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "react-native-best-practices",
+      "description": "16 rules across 7 sections for React Native development",
+      "category": "Mobile Development",
+      "tier": "partner",
+      "source": "Vercel",
+      "githubUrl": "https://github.com/vercel-labs/agent-skills",
+      "tags": ["react-native", "mobile", "best-practices"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "tinybird-best-practices",
+      "description": "Tinybird project guidelines for datasources, pipes, endpoints, SQL",
+      "category": "Databases",
+      "tier": "partner",
+      "source": "Tinybird",
+      "githubUrl": "https://github.com/tinybirdco/tinybird-best-practices",
+      "tags": ["analytics", "sql", "data"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "fal-audio",
+      "description": "Text-to-speech and speech-to-text using fal.ai audio models",
+      "category": "Media Generation",
+      "tier": "partner",
+      "source": "fal.ai",
+      "githubUrl": "https://github.com/fal-ai-community/skills",
+      "tags": ["audio", "tts", "stt"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "fal-generate",
+      "description": "Generate images and videos using fal.ai AI models",
+      "category": "Media Generation",
+      "tier": "partner",
+      "source": "fal.ai",
+      "githubUrl": "https://github.com/fal-ai-community/skills",
+      "tags": ["images", "video", "generation"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "fal-image-edit",
+      "description": "AI-powered image editing with style transfer and object removal",
+      "category": "Media Generation",
+      "tier": "partner",
+      "source": "fal.ai",
+      "githubUrl": "https://github.com/fal-ai-community/skills",
+      "tags": ["images", "editing", "ai"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "claude-scientific-skills",
+      "description": "140+ skills for bioinformatics, cheminformatics, proteomics, clinical research, quantum computing",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "K-Dense-AI",
+      "githubUrl": "https://github.com/K-Dense-AI/claude-scientific-skills",
+      "tags": ["science", "research", "bioinformatics"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "claude-scientific-writer",
+      "description": "Publication-ready papers, grant proposals (NSF, NIH), conference posters",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "K-Dense-AI",
+      "githubUrl": "https://github.com/K-Dense-AI/claude-scientific-writer",
+      "tags": ["writing", "science", "research"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "AI-research-SKILLs",
+      "description": "77 skills across 20 categories: model architecture, fine-tuning, distributed training, MLOps",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "zechenzhangAGI",
+      "githubUrl": "https://github.com/zechenzhangAGI/AI-research-SKILLs",
+      "tags": ["ml", "research", "training"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "ios-simulator-skill",
+      "description": "21 scripts for iOS testing with semantic UI navigation and accessibility testing",
+      "category": "Mobile Development",
+      "tier": "community",
+      "source": "conorluddy",
+      "githubUrl": "https://github.com/conorluddy/ios-simulator-skill",
+      "tags": ["ios", "testing", "simulator"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "playwright-skill",
+      "description": "General-purpose browser automation with responsive testing and form validation",
+      "category": "Development",
+      "tier": "community",
+      "source": "lackeyjb",
+      "githubUrl": "https://github.com/lackeyjb/playwright-skill",
+      "tags": ["automation", "testing", "browser"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "swiftui-expert-skill",
+      "description": "Modern SwiftUI best practices and iOS 26+ Liquid Glass adoption",
+      "category": "Mobile Development",
+      "tier": "community",
+      "source": "AvdLee",
+      "githubUrl": "https://github.com/AvdLee/swiftui-expert-skill",
+      "tags": ["swiftui", "ios", "mobile"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "varlock-claude-skill",
+      "description": "Secure environment variable management—secrets never exposed in sessions/logs",
+      "category": "Security",
+      "tier": "community",
+      "source": "wrsmith108",
+      "githubUrl": "https://github.com/wrsmith108/varlock-claude-skill",
+      "tags": ["security", "env", "secrets"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "security-bluebook-builder",
+      "description": "Build security Blue Books for sensitive applications",
+      "category": "Security",
+      "tier": "community",
+      "source": "SHADOWPR0",
+      "githubUrl": "https://github.com/SHADOWPR0/security-bluebook-builder",
+      "tags": ["security", "documentation", "compliance"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "secure-claude-skills",
+      "description": "CSRF protection, input validation, secure headers, rate limiting",
+      "category": "Security",
+      "tier": "community",
+      "source": "harperaa",
+      "githubUrl": "https://github.com/harperaa/secure-claude-skills",
+      "tags": ["security", "web", "protection"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "ffuf_claude_skill",
+      "description": "FFUF fuzzing integration for penetration testing",
+      "category": "Security",
+      "tier": "community",
+      "source": "jthack",
+      "githubUrl": "https://github.com/jthack/ffuf_claude_skill",
+      "tags": ["fuzzing", "pentesting", "security"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "awesome-claude-skills-security",
+      "description": "SecLists wordlists, SQL injection testing, XSS payloads, API key scanning",
+      "category": "Security",
+      "tier": "community",
+      "source": "Eyadkelleh",
+      "githubUrl": "https://github.com/Eyadkelleh/awesome-claude-skills-security",
+      "tags": ["security", "testing", "payloads"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "terraform-skill",
+      "description": "Comprehensive Terraform/OpenTofu best practices and CI/CD workflows",
+      "category": "Infrastructure",
+      "tier": "community",
+      "source": "antonbabenko",
+      "githubUrl": "https://github.com/antonbabenko/terraform-skill",
+      "tags": ["terraform", "iac", "infrastructure"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "hcp-terraform-skills",
+      "description": "HashiCorp Terraform style guide, testing framework, Stacks",
+      "category": "Infrastructure",
+      "tier": "partner",
+      "source": "HashiCorp",
+      "githubUrl": "https://github.com/hashi-demo-lab/claude-skill-hcp-terraform",
+      "tags": ["terraform", "hashicorp", "cloud"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "devops-claude-skills",
+      "description": "Terraform/Terragrunt, Kubernetes troubleshooting, AWS cost optimization",
+      "category": "Infrastructure",
+      "tier": "community",
+      "source": "ahmedasmar",
+      "githubUrl": "https://github.com/ahmedasmar/devops-claude-skills",
+      "tags": ["devops", "kubernetes", "aws"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "k8s-skills",
+      "description": "6 Kubernetes skills: autoscaling, backup, multi-cluster, cert-manager",
+      "category": "Infrastructure",
+      "tier": "community",
+      "source": "VoltAgent",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["kubernetes", "k8s", "containers"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "aws-skills",
+      "description": "AWS development with CDK best practices and serverless patterns",
+      "category": "Infrastructure",
+      "tier": "community",
+      "source": "VoltAgent",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["aws", "cdk", "serverless"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "remotion-best-practices",
+      "description": "Remotion video creation in React best practices",
+      "category": "Media Generation",
+      "tier": "partner",
+      "source": "Remotion",
+      "githubUrl": "https://github.com/remotion-dev/skills",
+      "tags": ["video", "react", "remotion"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "remotion-video-skill",
+      "description": "Programmatic video creation with AI-powered TTS audio",
+      "category": "Media Generation",
+      "tier": "community",
+      "source": "wshuyi",
+      "githubUrl": "https://github.com/wshuyi/remotion-video-skill",
+      "tags": ["video", "tts", "remotion"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "claude-code-video-toolkit",
+      "description": "AI-native video production with Remotion, ElevenLabs, FFmpeg",
+      "category": "Media Generation",
+      "tier": "community",
+      "source": "digitalsamba",
+      "githubUrl": "https://github.com/digitalsamba/claude-code-video-toolkit",
+      "tags": ["video", "ai", "production"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "video-prompting-skill",
+      "description": "Draft prompts for video generation models (LTX-2, Sora, Veo 3)",
+      "category": "Media Generation",
+      "tier": "community",
+      "source": "BehiSecc",
+      "githubUrl": "https://github.com/BehiSecc/awesome-claude-skills",
+      "tags": ["prompts", "video", "generation"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "imagen",
+      "description": "Generate images using Google Gemini's API",
+      "category": "Media Generation",
+      "tier": "community",
+      "source": "sanjay3290",
+      "githubUrl": "https://github.com/sanjay3290/imagen",
+      "tags": ["images", "gemini", "google"],
+      "platform": ["Claude Code", "Gemini"]
+    },
+    {
+      "name": "csv-data-summarizer",
+      "description": "Analyze CSVs: columns, distributions, missing data, correlations",
+      "category": "Databases",
+      "tier": "community",
+      "source": "coffeefuelbump",
+      "githubUrl": "https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill",
+      "tags": ["csv", "data", "analysis"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "claude-d3js-skill",
+      "description": "D3.js data visualizations",
+      "category": "Creative & Design",
+      "tier": "community",
+      "source": "chrisvoncsefalvay",
+      "githubUrl": "https://github.com/chrisvoncsefalvay/claude-d3js-skill",
+      "tags": ["d3", "visualization", "charts"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "postgres",
+      "description": "Execute safe read-only SQL queries against PostgreSQL",
+      "category": "Databases",
+      "tier": "community",
+      "source": "sanjay3290",
+      "githubUrl": "https://github.com/sanjay3290/postgres",
+      "tags": ["postgres", "sql", "database"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "integrate-whatsapp",
+      "description": "Connect WhatsApp, set up webhooks, send messages via Cloud API",
+      "category": "Communication",
+      "tier": "community",
+      "source": "gokapso",
+      "githubUrl": "https://github.com/gokapso/integrate-whatsapp",
+      "tags": ["whatsapp", "messaging", "api"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "automate-whatsapp",
+      "description": "Build WhatsApp automations with workflows and agents",
+      "category": "Communication",
+      "tier": "community",
+      "source": "gokapso",
+      "githubUrl": "https://github.com/gokapso/automate-whatsapp",
+      "tags": ["whatsapp", "automation", "workflows"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "observe-whatsapp",
+      "description": "Debug WhatsApp delivery issues and run health checks",
+      "category": "Communication",
+      "tier": "community",
+      "source": "gokapso",
+      "githubUrl": "https://github.com/gokapso/observe-whatsapp",
+      "tags": ["whatsapp", "debugging", "monitoring"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "claude-code-whatsapp",
+      "description": "Run Claude Code via WhatsApp with isolated E2B sandboxes",
+      "category": "Communication",
+      "tier": "community",
+      "source": "gokapso",
+      "githubUrl": "https://github.com/gokapso/claude-code-whatsapp",
+      "tags": ["whatsapp", "claude", "sandboxing"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Skill_Seekers",
+      "description": "Convert documentation websites, GitHub repos, and PDFs into Claude skills",
+      "category": "Meta Skills",
+      "tier": "community",
+      "source": "yusufkaraaslan",
+      "githubUrl": "https://github.com/yusufkaraaslan/Skill_Seekers",
+      "tags": ["meta", "conversion", "documentation"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "notebooklm-skill",
+      "description": "Chat with Google NotebookLM for source-grounded answers",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "PleasePrompto",
+      "githubUrl": "https://github.com/PleasePrompto/notebooklm-skill",
+      "tags": ["google", "research", "notebook"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "youtube-transcript",
+      "description": "Fetch transcripts from YouTube videos and prepare summaries",
+      "category": "Media Generation",
+      "tier": "community",
+      "source": "VoltAgent",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["youtube", "transcripts", "video"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "LangSmith-Fetch",
+      "description": "Debug LangChain/LangGraph agents via LangSmith traces",
+      "category": "Development",
+      "tier": "community",
+      "source": "OthmanAdi",
+      "githubUrl": "https://github.com/OthmanAdi/LangSmith-Fetch",
+      "tags": ["debugging", "langchain", "traces"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "meeting-insights-analyzer",
+      "description": "Transform meeting transcripts into actionable insights",
+      "category": "Project Management",
+      "tier": "community",
+      "source": "VoltAgent",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["meetings", "transcripts", "insights"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "invoice-organizer",
+      "description": "Organize invoices and receipts for tax preparation",
+      "category": "Databases",
+      "tier": "community",
+      "source": "ComposioHQ",
+      "githubUrl": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "tags": ["finance", "invoices", "organization"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "linear-claude-skill",
+      "description": "Manage Linear issues, projects, and teams with MCP tools",
+      "category": "Project Management",
+      "tier": "community",
+      "source": "wrsmith108",
+      "githubUrl": "https://github.com/wrsmith108/linear-claude-skill",
+      "tags": ["linear", "issues", "projects"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Markdown-to-EPUB-Converter",
+      "description": "Convert markdown and chat summaries into EPUB ebooks",
+      "category": "Document Processing",
+      "tier": "community",
+      "source": "ComposioHQ",
+      "githubUrl": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "tags": ["markdown", "epub", "ebooks"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Changelog-Generator",
+      "description": "Create user-facing changelogs from git commits",
+      "category": "Development",
+      "tier": "community",
+      "source": "ComposioHQ",
+      "githubUrl": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "tags": ["git", "changelog", "documentation"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "NanoBanana-PPT-Skills",
+      "description": "AI-powered PowerPoint generation with document analysis",
+      "category": "Document Processing",
+      "tier": "community",
+      "source": "op7418",
+      "githubUrl": "https://github.com/op7418/NanoBanana-PPT-Skills",
+      "tags": ["powerpoint", "presentations", "ai"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "frontend-slides",
+      "description": "Generate animation-rich HTML presentations with visual style previews",
+      "category": "Document Processing",
+      "tier": "community",
+      "source": "zarazhangrui",
+      "githubUrl": "https://github.com/zarazhangrui/frontend-slides",
+      "tags": ["presentations", "html", "slides"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "materials-simulation-skills",
+      "description": "Computational materials science: numerical stability, mesh generation, simulation",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "HeshamFS",
+      "githubUrl": "https://github.com/HeshamFS/materials-simulation-skills",
+      "tags": ["materials", "simulation", "science"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "clarity-gate",
+      "description": "Pre-ingestion verification for epistemic quality in RAG systems",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "frmoretto",
+      "githubUrl": "https://github.com/frmoretto/clarity-gate",
+      "tags": ["rag", "quality", "verification"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "Claude-Ally-Health",
+      "description": "Health assistant for medical information analysis and symptom tracking",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "huifer",
+      "githubUrl": "https://github.com/huifer/Claude-Ally-Health",
+      "tags": ["health", "medical", "tracking"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "deep-research",
+      "description": "Execute autonomous multi-step research using Gemini Deep Research",
+      "category": "AI/ML",
+      "tier": "community",
+      "source": "sanjay3290",
+      "githubUrl": "https://github.com/sanjay3290/deep-research",
+      "tags": ["research", "gemini", "autonomous"],
+      "platform": ["Claude Code", "Gemini"]
+    },
+    {
+      "name": "beautiful_prose",
+      "description": "Hard-edged writing style contract for forceful English prose",
+      "category": "Document Processing",
+      "tier": "community",
+      "source": "SHADOWPR0",
+      "githubUrl": "https://github.com/SHADOWPR0/beautiful_prose",
+      "tags": ["writing", "style", "prose"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "content-research-writer",
+      "description": "Research, citations, hooks, outlines for content writing",
+      "category": "Document Processing",
+      "tier": "community",
+      "source": "ComposioHQ",
+      "githubUrl": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "tags": ["writing", "research", "content"],
+      "platform": ["Claude Code", "Cursor"]
+    },
+    {
+      "name": "loki-mode",
+      "description": "Multi-agent autonomous startup system—37 AI agents across 6 swarms",
+      "category": "Development",
+      "tier": "community",
+      "source": "VoltAgent",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["agents", "automation", "orchestration"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "recursive-decomposition-skill",
+      "description": "Handle 100+ files, 50k+ tokens through recursive decomposition",
+      "category": "Development",
+      "tier": "community",
+      "source": "massimodeluisa",
+      "githubUrl": "https://github.com/massimodeluisa/recursive-decomposition-skill",
+      "tags": ["context", "decomposition", "optimization"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "claude-team",
+      "description": "Orchestrate multiple Claude Code workers via iTerm2",
+      "category": "Development",
+      "tier": "community",
+      "source": "VoltAgent",
+      "githubUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+      "tags": ["orchestration", "team", "automation"],
+      "platform": ["Claude Code"]
+    },
+    {
+      "name": "jules",
+      "description": "Delegate coding tasks to Google Jules AI agent for async work",
+      "category": "Development",
+      "tier": "community",
+      "source": "sanjay3290",
+      "githubUrl": "https://github.com/sanjay3290/jules",
+      "tags": ["delegation", "async", "google"],
+      "platform": ["Claude Code", "Jules"]
+    },
+    {
+      "name": "writing-skills",
+      "description": "Create new skills following best practices (meta skill)",
+      "category": "Meta Skills",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/writing-skills",
+      "tags": ["meta", "skills", "creation"],
+      "platform": ["Claude Code"],
+      "popularity": 40900
+    },
+    {
+      "name": "defense-in-depth",
+      "description": "Multi-layered security and testing best practices",
+      "category": "Security",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/defense-in-depth",
+      "tags": ["security", "testing", "defense"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "Pre-review checklist with severity-based issue reporting",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/requesting-code-review",
+      "tags": ["review", "code", "quality"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "receiving-code-review",
+      "description": "Respond appropriately to code review feedback",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/receiving-code-review",
+      "tags": ["review", "feedback", "collaboration"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": "Concurrent subagent workflows for parallel development",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/dispatching-parallel-agents",
+      "tags": ["agents", "parallel", "workflow"],
+      "platform": ["Claude Code"],
+      "popularity": 40900
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": "Guide branch completion: merge/PR/keep/discard with worktree cleanup",
+      "category": "Development",
+      "tier": "community",
+      "source": "obra",
+      "githubUrl": "https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch",
+      "tags": ["git", "branching", "workflow"],
+      "platform": ["Claude Code", "Cursor"],
+      "popularity": 40900
+    }
+  ]
+}

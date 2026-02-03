@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Skills Catalog Browser</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --official: #8b5cf6;
+            --partner: #3b82f6;
+            --community: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--official) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        select {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--background);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .tier-badges {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tier-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .tier-badge.official {
+            background: var(--official);
+            color: white;
+        }
+
+        .tier-badge.partner {
+            background: var(--partner);
+            color: white;
+        }
+
+        .tier-badge.community {
+            background: var(--community);
+            color: white;
+        }
+
+        .tier-badge.inactive {
+            background: var(--surface);
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            word-break: break-word;
+        }
+
+        .skill-tier {
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .skill-tier.official {
+            background: var(--official);
+            color: white;
+        }
+
+        .skill-tier.partner {
+            background: var(--partner);
+            color: white;
+        }
+
+        .skill-tier.community {
+            background: var(--community);
+            color: white;
+        }
+
+        .skill-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .skill-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .skill-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.75rem;
+        }
+
+        .tag {
+            padding: 0.2rem 0.5rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .github-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .github-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .error {
+            background: #fef2f2;
+            border: 2px solid var(--error);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .load-options {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .load-options h3 {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .url-input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn:disabled {
+            background: var(--secondary);
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Code Skills Catalog</h1>
+            <p class="subtitle">Browse and search 200+ skills for Claude Code and compatible AI coding platforms</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value" id="totalSkills">0</span>
+                    <span class="stat-label">Total Skills</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="officialCount">0</span>
+                    <span class="stat-label">Official</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="partnerCount">0</span>
+                    <span class="stat-label">Partner</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="communityCount">0</span>
+                    <span class="stat-label">Community</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="load-options">
+            <h3>Load Skills Catalog</h3>
+            <div class="url-input-group">
+                <input
+                    type="text"
+                    class="url-input"
+                    id="catalogUrl"
+                    placeholder="Enter GitHub raw URL to skills-catalog.json"
+                    value="https://raw.githubusercontent.com/yourusername/yourrepo/main/.claude/skills/skill-creator/skills-catalog.json"
+                >
+                <button class="btn" onclick="loadCatalog()">Load Catalog</button>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                Or use the default URL above (update with your GitHub username/repo)
+            </p>
+        </div>
+
+        <div id="errorContainer"></div>
+
+        <div class="controls" id="controls" style="display: none;">
+            <input
+                type="text"
+                class="search-box"
+                id="searchBox"
+                placeholder="Search skills by name, description, or tags..."
+            >
+
+            <div class="filter-group">
+                <span class="filter-label">Category:</span>
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Tier:</span>
+                <div class="tier-badges">
+                    <span class="tier-badge official" data-tier="official">Official</span>
+                    <span class="tier-badge partner" data-tier="partner">Partner</span>
+                    <span class="tier-badge community" data-tier="community">Community</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            Loading skills catalog...
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            No skills found matching your criteria.
+        </div>
+
+        <div class="skills-grid" id="skillsGrid"></div>
+    </div>
+
+    <script>
+        let allSkills = [];
+        let filteredSkills = [];
+        let selectedTiers = new Set(['official', 'partner', 'community']);
+
+        function loadCatalog() {
+            const url = document.getElementById('catalogUrl').value.trim();
+            if (!url) {
+                showError('Please enter a valid URL');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('errorContainer').innerHTML = '';
+            document.getElementById('skillsGrid').innerHTML = '';
+            document.getElementById('controls').style.display = 'none';
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allSkills = data.skills || [];
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('controls').style.display = 'flex';
+                    initializeFilters(data);
+                    updateStats(data);
+                    renderSkills();
+                })
+                .catch(error => {
+                    document.getElementById('loading').style.display = 'none';
+                    showError(`Failed to load catalog: ${error.message}`);
+                });
+        }
+
+        function showError(message) {
+            document.getElementById('errorContainer').innerHTML =
+                `<div class="error">${message}</div>`;
+        }
+
+        function initializeFilters(data) {
+            // Initialize category filter
+            const categories = Object.keys(data.categories || {});
+            const categoryFilter = document.getElementById('categoryFilter');
+            categoryFilter.innerHTML = '<option value="">All Categories</option>';
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = `${category} (${data.categories[category].count})`;
+                categoryFilter.appendChild(option);
+            });
+
+            // Initialize tier badges
+            document.querySelectorAll('.tier-badge').forEach(badge => {
+                badge.addEventListener('click', () => {
+                    const tier = badge.dataset.tier;
+                    if (selectedTiers.has(tier)) {
+                        selectedTiers.delete(tier);
+                        badge.classList.add('inactive');
+                    } else {
+                        selectedTiers.add(tier);
+                        badge.classList.remove('inactive');
+                    }
+                    filterSkills();
+                });
+            });
+
+            // Initialize search
+            document.getElementById('searchBox').addEventListener('input', filterSkills);
+            document.getElementById('categoryFilter').addEventListener('change', filterSkills);
+        }
+
+        function updateStats(data) {
+            document.getElementById('totalSkills').textContent = data.metadata?.totalSkills || allSkills.length;
+
+            const tierCounts = allSkills.reduce((acc, skill) => {
+                acc[skill.tier] = (acc[skill.tier] || 0) + 1;
+                return acc;
+            }, {});
+
+            document.getElementById('officialCount').textContent = tierCounts.official || 0;
+            document.getElementById('partnerCount').textContent = tierCounts.partner || 0;
+            document.getElementById('communityCount').textContent = tierCounts.community || 0;
+        }
+
+        function filterSkills() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+
+            filteredSkills = allSkills.filter(skill => {
+                // Tier filter
+                if (!selectedTiers.has(skill.tier)) {
+                    return false;
+                }
+
+                // Category filter
+                if (selectedCategory && skill.category !== selectedCategory) {
+                    return false;
+                }
+
+                // Search filter
+                if (searchTerm) {
+                    const searchableText = [
+                        skill.name,
+                        skill.description,
+                        skill.source,
+                        ...(skill.tags || [])
+                    ].join(' ').toLowerCase();
+
+                    if (!searchableText.includes(searchTerm)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            renderSkills();
+        }
+
+        function renderSkills() {
+            const grid = document.getElementById('skillsGrid');
+            const noResults = document.getElementById('noResults');
+
+            const skillsToRender = filteredSkills.length > 0 ? filteredSkills : allSkills;
+
+            if (skillsToRender.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+
+            grid.innerHTML = skillsToRender.map(skill => `
+                <div class="skill-card" onclick="window.open('${skill.githubUrl || '#'}', '_blank')">
+                    <div class="skill-header">
+                        <div class="skill-name">${skill.name}</div>
+                        <div class="skill-tier ${skill.tier}">${skill.tier}</div>
+                    </div>
+                    <div class="skill-description">${skill.description}</div>
+                    <div class="skill-meta">
+                        <div class="skill-meta-item">
+                            <span>📁</span>
+                            <span>${skill.category}</span>
+                        </div>
+                        <div class="skill-meta-item">
+                            <span>👤</span>
+                            <span>${skill.source}</span>
+                        </div>
+                        ${skill.githubUrl ? `
+                        <div class="skill-meta-item">
+                            <span>🔗</span>
+                            <a href="${skill.githubUrl}" target="_blank" class="github-link" onclick="event.stopPropagation()">
+                                View on GitHub
+                            </a>
+                        </div>
+                        ` : ''}
+                        ${skill.platform ? `
+                        <div class="skill-meta-item">
+                            <span>💻</span>
+                            <span>${skill.platform.join(', ')}</span>
+                        </div>
+                        ` : ''}
+                        ${skill.popularity ? `
+                        <div class="skill-meta-item">
+                            <span>⭐</span>
+                            <span>${skill.popularity.toLocaleString()} stars</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    ${skill.tags && skill.tags.length > 0 ? `
+                    <div class="skill-tags">
+                        ${skill.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Try to load from local file first (won't work due to CORS, but included for completeness)
+        window.addEventListener('DOMContentLoaded', () => {
+            // You can set a default GitHub URL here
+            // loadCatalog();
+        });
+    </script>
+</body>
+</html>

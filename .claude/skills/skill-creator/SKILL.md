@@ -14,14 +14,15 @@ If you have a `memories/insights/` directory, check for relevant working princip
 
 ## Quick Start
 
-Creating a skill involves six steps:
+Creating a skill involves seven steps:
 
-1. **Understand the use case** - Clarify what the skill does and when it triggers
-2. **Identify reusable components** - Scripts, references, examples
-3. **Initialize the skill** - Use `init_skill.py` or create manually
-4. **Write the SKILL.md** - Clear instructions using best practices
-5. **Package the skill** - Validate and bundle for distribution (optional)
-6. **Iterate and refine** - Test in real conversations and improve
+1. **Check existing skills catalog** - Review 200+ available skills before creating new ones
+2. **Understand the use case** - Clarify what the skill does and when it triggers
+3. **Identify reusable components** - Scripts, references, examples
+4. **Initialize the skill** - Use `init_skill.py` or create manually
+5. **Write the SKILL.md** - Clear instructions using best practices
+6. **Package the skill** - Validate and bundle for distribution (optional)
+7. **Iterate and refine** - Test in real conversations and improve
 
 ## Core Principles
 
@@ -41,6 +42,51 @@ Keep SKILL.md under 500 lines. Split detailed content into reference files. Load
 
 ### Effective Descriptions
 Descriptions should convey both **what the skill does** AND **when to use it**. Write in third person for automatic invocation.
+
+## Step 0: Check Existing Skills Catalog
+
+Before creating a new skill, check if one already exists in the comprehensive catalog of 200+ skills.
+
+### Check the Catalog
+
+Read the skills catalog to search for existing solutions:
+```bash
+# Check the local catalog
+cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.name | contains("keyword"))'
+
+# Or search by category
+cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.category == "Development")'
+```
+
+### Browse the Catalog
+
+You can also browse the catalog visually at:
+- Local HTML viewer: `public/Public/skills-browser.html`
+- GitHub hosted version: `https://raw.githubusercontent.com/[username]/[repo]/main/.claude/skills/skill-creator/skills-catalog.json`
+
+### Key Resources
+- **Official skills (16)**: Document processing, creative work, development
+- **Partner integrations (40+)**: Notion, Figma, Atlassian, Vercel, etc.
+- **Community skills (150+)**: Security, AI/ML, infrastructure, mobile
+
+### If a Similar Skill Exists
+
+1. **Check if it meets your needs** - Many skills are configurable
+2. **Consider extending it** - Fork and modify rather than duplicate
+3. **Install from source** - Use the GitHub URL to add to your project
+4. **Suggest improvements** - Contribute back to the original
+
+### Common Skill Categories
+
+Before creating a new skill, check these popular categories:
+- **Document Processing**: PDF, Word, Excel, PowerPoint manipulation
+- **Development**: Testing, debugging, code review, git workflows
+- **AI/ML**: Model training, datasets, evaluation, research
+- **Security**: Vulnerability analysis, fuzzing, secure coding
+- **Infrastructure**: Terraform, Kubernetes, AWS, deployment
+- **Creative & Design**: Art generation, UI design, video creation
+
+If no existing skill matches your needs, proceed to Step 1.
 
 ## Step 1: Understand the Use Case
 
