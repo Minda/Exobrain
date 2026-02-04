@@ -45,36 +45,42 @@ Descriptions should convey both **what the skill does** AND **when to use it**. 
 
 ## Step 0: Check Existing Skills Catalog
 
-Before creating a new skill, check if one already exists in the comprehensive catalog of 200+ skills.
+Before creating a new skill, check if one already exists in the catalog of 126 indexed skills.
 
 ### Check the Catalog
 
 Read the skills catalog to search for existing solutions:
 ```bash
-# Check the local catalog
+# Search by name keyword
 cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.name | contains("keyword"))'
 
-# Or search by category
+# Search by category
 cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.category == "Development")'
+
+# Find skills with local copies
+cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.localPath != null)'
 ```
 
-### Browse the Catalog
+### Skill Tiers and Locations
 
-You can also browse the catalog visually at:
-- Local HTML viewer: `public/Public/skills-browser.html`
-- GitHub hosted version: `https://raw.githubusercontent.com/[username]/[repo]/main/.claude/skills/skill-creator/skills-catalog.json`
+The catalog indexes skills across five tiers with actual file locations:
 
-### Key Resources
-- **Official skills (16)**: Document processing, creative work, development
-- **Partner integrations (40+)**: Notion, Figma, Atlassian, Vercel, etc.
-- **Community skills (150+)**: Security, AI/ML, infrastructure, mobile
+| Tier | Count | Location | Description |
+|------|-------|----------|-------------|
+| `official` | 16 | `get-skill/` | Anthropic official skills |
+| `partner` | 40 | `get-skill/` | Partner integrations (Notion, Figma, Vercel, etc.) |
+| `community` | 44 | `get-skill/` | Community-contributed skills |
+| `project` | 19 | `.claude/skills/` | DigitalBrain project skills |
+| `personal` | 7 | `personal/.claude/skills/` | Personal/private skills |
+
+Skills with a `localPath` field have local copies you can read directly. Skills without it are external references only.
 
 ### If a Similar Skill Exists
 
-1. **Check if it meets your needs** - Many skills are configurable
-2. **Consider extending it** - Fork and modify rather than duplicate
-3. **Install from source** - Use the GitHub URL to add to your project
-4. **Suggest improvements** - Contribute back to the original
+1. **Read the local copy** — If `localPath` exists, read the SKILL.md directly
+2. **Check if it meets your needs** — Many skills are configurable
+3. **Consider extending it** — Fork and modify rather than duplicate
+4. **Install from source** — Use the `githubUrl` to add to your project
 
 ### Common Skill Categories
 
@@ -85,6 +91,7 @@ Before creating a new skill, check these popular categories:
 - **Security**: Vulnerability analysis, fuzzing, secure coding
 - **Infrastructure**: Terraform, Kubernetes, AWS, deployment
 - **Creative & Design**: Art generation, UI design, video creation
+- **Workflow**: Session management, memory, personal workflows
 
 If no existing skill matches your needs, proceed to Step 1.
 
@@ -110,9 +117,22 @@ Organize your skill with these component types:
 ### Scripts (`scripts/`)
 Use for deterministic tasks that bash/python handle better than Claude:
 - API calls with authentication
-- File parsing and data transformation
+- File parsing and data transformation (especially when files are large)
 - Complex calculations
 - Integration with external tools
+
+**IMPORTANT for Large Files:**
+When dealing with large files (>10MB), ALWAYS use scripts instead of loading content into Claude's context:
+- Parse and extract only what's needed
+- Use streaming/chunked processing
+- Generate summaries or indices
+- Return structured data, not raw content
+
+Example: For a 277MB JSON file, create a Python script that:
+1. Loads the file in the script
+2. Extracts schema/statistics/samples
+3. Returns only the analysis results to Claude
+Never use Read tool or cat/head commands that would load large content into context.
 
 ### References (`references/`)
 Use for detailed documentation that supplements the main SKILL.md:
@@ -120,6 +140,14 @@ Use for detailed documentation that supplements the main SKILL.md:
 - Configuration guides
 - Advanced examples
 - Historical patterns and gotchas
+
+### Sources (`sources/`)
+Use for curated external skill repositories and catalogs to check *before* building:
+- Anthropic official skills repo
+- Community catalogs and indexes
+- Canonical implementations to reference or extend
+
+*(The skill-creator itself has a `sources/` directory; individual skills add it only when they aggregate external references.)*
 
 ### Examples (`examples/`)
 Use for concrete input/output pairs that show the skill in action:
@@ -142,6 +170,11 @@ skill-name/
 ├── scripts/           # Helper scripts
 ├── references/        # Detailed docs
 └── examples/          # Usage examples
+```
+
+The skill-creator itself also has:
+```
+sources/               # External skill repos and catalogs (check before building)
 ```
 
 ### Manual Creation
@@ -368,13 +401,20 @@ Test your skill in real conversations:
 
 ❌ **Time-sensitive info** - Instead of "In 2024...", use "Historical pattern: ..."
 
+❌ **Loading large files into context** - Never use Read tool or show file contents for files >10MB. Instead:
+  - Create a script that processes the file and returns summaries/analysis
+  - Use streaming or chunked processing in the script
+  - Extract only the specific data needed
+  - Return structured results, not raw content
+  Example: For a 277MB JSON, create a Python script that analyzes it and returns only the schema and statistics
+
 ## Anthropic Skills Repository
 
 **Official reference:** [https://github.com/anthropics/skills](https://github.com/anthropics/skills)
 
 Anthropic’s public repo contains example skills (creative, technical, enterprise, document) and the official Agent Skills spec. When creating a new skill:
 
-1. **Check before building** — See `references/anthropic-skills-reference.md` for a curated list of skills to consider **downloading or referencing first** so you don’t duplicate existing capabilities.
+1. **Check before building** — See `sources/anthropic-skills.md` for a curated list of skills to consider **downloading or referencing first** so you don’t duplicate existing capabilities.
 2. **Use the template** — The repo’s [template](https://github.com/anthropics/skills/tree/main/template) and [spec](https://github.com/anthropics/skills/tree/main/spec) align with this skill’s structure.
 3. **Install via Claude Code** — In Claude Code you can add the marketplace (`/plugin marketplace add anthropics/skills`) and install `document-skills` or `example-skills`, then invoke by name (e.g. “Use the PDF skill to…”).
 
@@ -435,12 +475,19 @@ Disclaimer: skills there are for demonstration; implementations in your environm
 | Quality Philosophy | Output needs craftsmanship, not just correctness |
 | Environmental Adaptation | Behavior varies by available tools/integrations |
 
+### Sources (check before building)
+
+| File | Purpose |
+|------|---------|
+| `sources/anthropic-skills.md` | Anthropic official skills repo — curated list to check first |
+| `sources/README.md` | Overview of all sources for skills |
+| `skills-catalog.json` | Local catalog of 200+ skills (at skill-creator root) |
+
 ### Other References
 
 | File | Purpose |
 |------|---------|
 | `references/agent-skills-discovery-rfc.md` | Cloudflare RFC for `.well-known/skills/` discovery |
-| `references/anthropic-skills-reference.md` | Anthropic skills to check before building |
 | `templates/skill-request.md` | Fillable form for requesting new skills |
 
 ## Getting Help

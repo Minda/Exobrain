@@ -22,21 +22,29 @@ The goal is not just to store information, but to create a living structure that
 
 ## Public vs Personal Separation
 
-**This repository contains TWO distinct parts:**
+**This project uses TWO separate Git repositories for security:**
 
-### Public (This Repository)
+### Public Repository (`DigitalBrain`)
 - **Framework** — Core cognitive scaffolding system
 - **Generic skills** — Reusable skills in `.claude/skills/`
 - **Templates** — Example structures in `examples/`
 - **Documentation** — Setup guides, conventions
+- **Tools** — Python scripts for processing data
 
-### Personal (Separate Private Repository)
+### Private Repository (`personal/` - separate Git repo)
 - **Your data** — Downloads, transcripts, research files
 - **Your memories** — Insights, carried-forward content
 - **Your drafts** — Work in progress
 - **Your learnings** — Documented insights and discoveries
 - **Your relational context** — How you work with Claude
 - **Personal skills** — Skills customized to your workflow
+- **Conversation history** — ChatGPT exports and processed conversations
+
+**IMPORTANT SECURITY NOTE:** The `personal/` directory is:
+1. Listed in `.gitignore` of the public repo (line 2)
+2. Its own separate private Git repository
+3. Never pushed to the public DigitalBrain repository
+4. Safe for storing sensitive personal data like conversation history
 
 ### Directory Mapping
 
@@ -90,7 +98,8 @@ DigitalBrain/
     ├── drafts/               # Work in progress
     ├── downloads/            # Articles, books, papers, transcripts
     ├── learnings/            # Documented insights
-    └── research/             # Research projects
+    ├── research/             # Research projects
+    └── conversational-history/ # ChatGPT export (NEVER commit to public repo)
 ```
 
 ## Conventions
@@ -166,6 +175,22 @@ The `personal/` directory contains your private content:
 - **relational context** — Your working relationship with Claude
 
 This directory is gitignored and should be its own git repository (private or local-only). Symlinks in the root directory point to personal/ subdirectories for convenience.
+
+### Conversational History
+
+The `personal/conversational-history/` directory contains:
+- **ChatGPT exports** — Raw JSON files from ChatGPT data exports
+- **Processed conversations** — Individual markdown files with frontmatter
+- **Analysis tools** — Python scripts for processing (stored in main repo)
+
+**SECURITY REMINDER:**
+- Conversation history contains personal thoughts, work projects, and private information
+- ALWAYS keep in `personal/` directory (private repo)
+- NEVER move conversation files to the public repository
+- Processing scripts (in `python/`) are safe in public repo as they contain no data
+
+**Processing Large Conversation Files:**
+When working with large conversation exports (>10MB), always use scripts to process them rather than loading into context. See `python/split_conversations_v2.py` for the recommended pattern.
 
 ## Working with Memories
 
