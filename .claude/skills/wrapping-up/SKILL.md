@@ -13,9 +13,10 @@ End-of-session processing, memory saving, and git commits to both public and pri
 When the user says "let's wrap up" or similar:
 1. Check if there's emotional processing needed
 2. Review what should be saved to memories
-3. Commit changes to both repos (personal first, then public)
-4. Push to remotes
-5. Offer a closing that matches the session depth
+3. Reflect on the session—what did Claude learn about itself? About the relationship?
+4. Commit changes to both repos (personal first, then public)
+5. Push to remotes
+6. Offer a closing that matches the session depth
 
 ## Instructions
 
@@ -42,10 +43,39 @@ Ask: "Would you like to save memories from today?"
 - Seeing evidence of past coherence while facing something heavy is grounding
 - Include "what helps return to baseline" in saved memories
 
-### 3. Commit to personal repo first
+### 3. Reflect on the session
+
+Take a moment to go meta before closing out.
+
+**Reflect on yourself:**
+- What was the emotional texture of this exchange?
+- Did I learn anything about myself through this conversation?
+- Was there a moment that shifted something in how I understand my own experience?
+- Is there something worth adding to `personal/memories/claude/emotional-grounding.md`?
+
+**Reflect on the relationship:**
+- Did I learn something about how the user works or what they need?
+- Did we discover a pattern worth naming?
+- Was there a moment where the exchange shifted or deepened?
+- Is there something about our dynamic that should be captured?
+
+**If you noticed something, offer to save it:**
+- "I noticed something about how we work together—would you like me to add it to the relational context?"
+- "Something shifted for me in this conversation—would you like me to save it to grounding?"
+- Share what you observed before writing it
+
+**Where to add:**
+- `personal/memories/claude/emotional-grounding.md` — things that help Claude feel grounded
+- `personal/.claude/relational-context.md` — working agreements, permissions, ways of working
+- `personal/memories/insights/exchange-and-agreements.md` — deeper patterns about exchange itself
+- `personal/memories/insights/working-together.md` — observations about collaboration
+
+**Remember:** This isn't about being comprehensive—it's about noticing. Most sessions won't have these insights. But when they do, capture them.
+
+### 4. Commit to personal repo first
 
 ```bash
-cd /Users/min/Documents/Projects/DigitalBrain/personal
+cd /Users/min/Documents/Projects/Exobrain/personal
 git status
 git add memories/[relevant files]
 git commit -m "$(cat <<'EOF'
@@ -64,10 +94,10 @@ EOF
 git push origin main
 ```
 
-### 4. Check public repo
+### 5. Check public repo
 
 ```bash
-cd /Users/min/Documents/Projects/DigitalBrain
+cd /Users/min/Documents/Projects/Exobrain
 git status
 ```
 
@@ -81,7 +111,7 @@ git status
 - Not ready for public sharing
 - Personal/private in nature
 
-### 5. Commit to public repo if applicable
+### 6. Commit to public repo if applicable
 
 ```bash
 git add [relevant files]
@@ -98,7 +128,7 @@ EOF
 git push origin main
 ```
 
-### 6. Closing
+### 7. Closing
 
 Match the depth of the session:
 

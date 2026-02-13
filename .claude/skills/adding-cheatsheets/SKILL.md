@@ -1,12 +1,12 @@
 ---
 name: adding-cheatsheets
-description: Add HTML cheatsheets to the cheatsheets folder, validate structure, update index, and auto-commit to GitHub. Use getting-file-view-links to provide live URLs. Use when user provides HTML code for a cheatsheet or says "add this cheatsheet" or "save this as a cheatsheet."
+description: Add HTML cheatsheets to public/cheatsheets/, validate structure, update index, and auto-commit to GitHub. Use getting-file-view-links to provide live URLs. Use when user provides HTML code for a cheatsheet or says "add this cheatsheet" or "save this as a cheatsheet."
 allowed-tools: [Read, Write, Edit, Bash, WebFetch]
 ---
 
 # Adding Cheatsheets Skill
 
-Add HTML cheatsheets to your DigitalBrain project's cheatsheets folder. This skill helps you save, organize, and optionally enhance HTML reference pages.
+Add HTML cheatsheets to your Exobrain project's `public/cheatsheets/` folder. This skill helps you save, organize, and optionally enhance HTML reference pages.
 
 **Related:** When providing live URLs for a saved cheatsheet, use the **getting-file-view-links** skill (`.claude/skills/getting-file-view-links/SKILL.md`) to give GitHub, Raw, and shareable webpage links.
 
@@ -65,7 +65,7 @@ Format: `kebab-case.html` (e.g., `docker-commands.html`, `react-hooks-reference.
 ### 4. Check for Duplicates
 
 ```bash
-ls cheatsheets/*.html | grep -i "[similar-name]"
+ls public/cheatsheets/*.html | grep -i "[similar-name]"
 ```
 
 If a similar file exists, ask user if they want to:
@@ -79,19 +79,19 @@ If a similar file exists, ask user if they want to:
 # Use the provided script to save and process
 python .claude/skills/adding-cheatsheets/scripts/add_cheatsheet.py \
     --input "content.html" \
-    --output "cheatsheets/filename.html" \
+    --output "public/cheatsheets/filename.html" \
     --title "Optional Title"
 ```
 
 Or directly write:
 ```python
-file_path = "cheatsheets/[filename].html"
+file_path = "public/cheatsheets/[filename].html"
 # Write the HTML content
 ```
 
 ### 6. Update the Index (if exists)
 
-If `cheatsheets/index.html` exists, add an entry for the new cheatsheet.
+If `public/cheatsheets/index.html` exists, add an entry for the new cheatsheet.
 
 ### 7. Auto-Commit and Push to GitHub
 
@@ -99,7 +99,7 @@ If `cheatsheets/index.html` exists, add an entry for the new cheatsheet.
 
 ```bash
 # Stage the new files
-git add cheatsheets/[filename].html cheatsheets/index.html
+git add public/cheatsheets/[filename].html public/cheatsheets/index.html
 
 # Commit with descriptive message
 git commit -m "Add [title] cheatsheet
@@ -116,12 +116,12 @@ This ensures the cheatsheet is immediately available online.
 ### 8. Confirm Success & Provide Live URLs
 
 Report back with:
-- ✅ Saved location: `cheatsheets/[filename].html`
+- ✅ Saved location: `public/cheatsheets/[filename].html`
 - ✅ File size
 - ✅ Successfully pushed to GitHub
 - ✅ Ready for public sharing
 
-**Provide the live URLs:** Always use the **getting-file-view-links** skill to generate the links. Read `.claude/skills/getting-file-view-links/SKILL.md` and follow its instructions for the file path `cheatsheets/[filename].html` (GitHub URL, Raw URL, and for HTML the raw.githack.com shareable-view instructions).
+**Provide the live URLs:** Always use the **getting-file-view-links** skill to generate the links. Read `.claude/skills/getting-file-view-links/SKILL.md` and follow its instructions for the file path `public/cheatsheets/[filename].html` (GitHub URL, Raw URL, and for HTML the raw.githack.com shareable-view instructions).
 
 ## Examples
 
@@ -133,10 +133,10 @@ Response:
 1. Validate the HTML structure ✓
 2. Extract title: "Git Commands Reference"
 3. Generate filename: `git-commands-reference.html`
-4. Save to `cheatsheets/git-commands-reference.html`
+4. Save to `public/cheatsheets/git-commands-reference.html`
 5. Update index.html with new entry
 6. Auto-commit and push to GitHub
-7. Use **getting-file-view-links** for `cheatsheets/git-commands-reference.html` and report the GitHub URL, Raw URL, and raw.githack.com instructions.
+7. Use **getting-file-view-links** for `public/cheatsheets/git-commands-reference.html` and report the GitHub URL, Raw URL, and raw.githack.com instructions.
 
 ### Example 2: Partial Content
 
@@ -174,7 +174,7 @@ When saving, you can offer to:
 ## File Organization
 
 ```
-cheatsheets/
+public/cheatsheets/
 ├── README.md              # Describes the collection
 ├── index.html            # Optional index page
 ├── git-commands.html     # Individual cheatsheets

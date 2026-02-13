@@ -282,8 +282,8 @@ def main():
 
     # Determine project root and cheatsheets directory
     script_path = Path(__file__).resolve()
-    project_root = script_path.parents[3]  # Go up to DigitalBrain root
-    cheatsheets_dir = project_root / "cheatsheets"
+    project_root = script_path.parents[3]  # Go up to Exobrain root
+    cheatsheets_dir = project_root / "public" / "cheatsheets"
 
     # Ensure cheatsheets directory exists
     cheatsheets_dir.mkdir(exist_ok=True)

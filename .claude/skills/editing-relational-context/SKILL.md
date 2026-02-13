@@ -43,5 +43,5 @@ This frontmatter is Cursor-specific. The rest of the content should be identical
 ## What doesn't belong
 
 - Technical project details (those go in CLAUDE.md)
-- Research or insights (those go in memories/)
+- Research or insights (those go in personal/memories/)
 - Temporary notes or todos

@@ -25,7 +25,7 @@ If you use MCP for setup, you still need the **database id** for the backend if 
 
 ## One-time Notion setup (Python script alternative)
 
-If you prefer not to use MCP, from the **project root** (DigitalBrain):
+If you prefer not to use MCP, from the **project root** (Exobrain):
 
 ```bash
 export NOTION_API_KEY="your_secret_..."

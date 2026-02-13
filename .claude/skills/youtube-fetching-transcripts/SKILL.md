@@ -63,7 +63,7 @@ Create the target directory and fetch transcript:
 mkdir -p "$DEST_DIR/$FOLDER_NAME"
 
 # Fetch transcript to custom location
-uv run --project python python .claude/skills/youtube-fetching-transcripts/scripts/fetch_transcript.py "$URL" --output-dir "$DEST_DIR/$FOLDER_NAME"
+uv run --project src/python python .claude/skills/youtube-fetching-transcripts/scripts/fetch_transcript.py "$URL" --output-dir "$DEST_DIR/$FOLDER_NAME"
 ```
 
 Output example:
@@ -130,7 +130,16 @@ else
 fi
 ```
 
-### 6. Report Results
+### 6. Open Created Files
+
+Open the transcript files in the user's editor/viewer:
+
+```bash
+open "$DEST_DIR/$FOLDER_NAME/$FILENAME_BASE.md"
+open "$DEST_DIR/$FOLDER_NAME/$FILENAME_BASE.json"
+```
+
+### 7. Report Results
 
 Provide user with:
 - Location of saved files
@@ -191,7 +200,8 @@ User provides YouTube URL
 │  └─ No: Report error and stop
 ├─ Create markdown version
 ├─ Extract title and rename files
-└─ Update/create README index
+├─ Update/create README index
+└─ Open created files (md + json)
 ```
 
 ## Example Use Cases

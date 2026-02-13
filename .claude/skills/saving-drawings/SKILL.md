@@ -1,6 +1,6 @@
 ---
 name: saving-drawings
-description: Preserve ASCII diagrams in memories/drawings/ with metadata and context. Use after creating ASCII diagrams worth preserving or when user asks to save a diagram.
+description: Preserve ASCII diagrams in personal/memories/drawings/ with metadata and context. Use after creating ASCII diagrams worth preserving or when user asks to save a diagram.
 allowed-tools: [Write]
 ---
 
@@ -19,7 +19,7 @@ Preserve ASCII diagrams in a structured way that makes them discoverable and reu
 
 ### 1. File Location
 ```
-memories/drawings/[descriptive-name].md
+personal/memories/drawings/[descriptive-name].md
 ```
 
 ### 2. File Structure Template
@@ -97,7 +97,7 @@ Always include:
 - Competing theories
 - Integration opportunities
 
-## Integration with DigitalBrain
+## Integration with Exobrain
 
 These drawings become part of your extended cognition:
 - Quick visual references for complex ideas
@@ -106,7 +106,7 @@ These drawings become part of your extended cognition:
 - Carried-forward understanding made tangible
 
 ## Quick Checklist
-- [ ] Created in `memories/drawings/`
+- [ ] Created in `personal/memories/drawings/`
 - [ ] Has descriptive filename
 - [ ] Includes source and date
 - [ ] Has explanatory context

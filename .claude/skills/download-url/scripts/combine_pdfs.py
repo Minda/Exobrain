@@ -80,7 +80,7 @@ def merge_related_pdfs(pdf_paths: list[Path], output_path: Path, title: str = "M
     # Add metadata
     writer.add_metadata({
         '/Title': title,
-        '/Creator': 'DigitalBrain Multi-Page Download',
+        '/Creator': 'Exobrain Multi-Page Download',
         '/Producer': 'pypdf',
         '/CreationDate': datetime.now().isoformat(),
         '/Subject': f'Combined {len(merged_files)} related documents'

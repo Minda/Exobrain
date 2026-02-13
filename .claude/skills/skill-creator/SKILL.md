@@ -8,50 +8,56 @@ allowed-tools: [Read, Write, Edit, Bash, Glob, Grep]
 
 A comprehensive guide for creating effective Claude Code skills that extend Claude's capabilities with specialized knowledge, workflows, and tool integrations.
 
-## Context
-
-If you have a `memories/insights/` directory, check for relevant working principles before creating skills. Skills should embody the principles of how you work together.
-
 ## Quick Start
 
 Creating a skill involves seven steps:
 
-1. **Check existing skills catalog** - Review 200+ available skills before creating new ones
-2. **Understand the use case** - Clarify what the skill does and when it triggers
-3. **Identify reusable components** - Scripts, references, examples
-4. **Initialize the skill** - Use `init_skill.py` or create manually
-5. **Write the SKILL.md** - Clear instructions using best practices
-6. **Package the skill** - Validate and bundle for distribution (optional)
-7. **Iterate and refine** - Test in real conversations and improve
+1. **Check existing skills** — Review 126+ indexed skills before creating new ones
+2. **Understand the use case** — Clarify what the skill does and when it triggers
+3. **Identify bundled resources** — Scripts, references, examples
+4. **Initialize the skill** — Use `init_skill.py` or create manually
+5. **Write the SKILL.md** — Clear instructions using best practices
+6. **Package the skill** — Validate and bundle for distribution (optional)
+7. **Iterate and refine** — Test in real conversations and improve
 
-## Core Principles
+## When to Use
 
-### Skills Are Prompts
-All prompting best practices apply. Be clear and direct. Assume Claude is smart—only add context Claude doesn't already have.
+- Creating a new skill from scratch
+- Improving or refining an existing skill
+- Learning skill structure and best practices
+- Packaging skills for distribution
 
-### Standard Markdown Format
-Skills use YAML frontmatter plus markdown body. No XML tags, just standard markdown headings and formatting.
+## When Not to Use
 
-### Progressive Disclosure
-Following the Agent Skills Discovery RFC pattern, minimize context usage through three levels:
-1. **Index metadata** (~100 tokens) - Name and description only
-2. **Full instructions** (<5000 tokens) - Complete SKILL.md when activated
-3. **Supporting resources** - Scripts/references fetched on-demand
+- An existing skill already covers the need (check catalog first)
+- Task is too simple—just use a prompt directly
+- Need persistent services—use an MCP server instead
+- Building a full application—skills are focused components
 
-Keep SKILL.md under 500 lines. Split detailed content into reference files. Load only what's needed when needed.
+## What's Included in a Skill?
 
-### Effective Descriptions
-Descriptions should convey both **what the skill does** AND **when to use it**. Write in third person for automatic invocation.
+There are only **two requirements**:
+1. **Frontmatter** with `name` and `description`
+2. **Body** containing instructions
 
-## Step 0: Check Existing Skills Catalog
+Everything else is optional.
 
-Before creating a new skill, check if one already exists in the catalog of 126 indexed skills.
+### How Skills Load
 
-### Check the Catalog
+| Component | When Loaded | Budget |
+|-----------|-------------|--------|
+| **Frontmatter** | Every agent boot | ~100 tokens |
+| **Body** | On activation | <5,000 tokens |
+| **Supporting files** | On-demand | As needed |
 
-Read the skills catalog to search for existing solutions:
+This is why frontmatter must be minimal but body can be detailed.
+
+## Step 1: Check Existing Skills
+
+Before creating a new skill, check if one already exists.
+
 ```bash
-# Search by name keyword
+# Search by name
 cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.name | contains("keyword"))'
 
 # Search by category
@@ -63,107 +69,54 @@ cat .claude/skills/skill-creator/skills-catalog.json | jq '.skills[] | select(.l
 
 ### Skill Tiers and Locations
 
-The catalog indexes skills across five tiers with actual file locations:
-
 | Tier | Count | Location | Description |
 |------|-------|----------|-------------|
-| `official` | 16 | `get-skill/` | Anthropic official skills |
-| `partner` | 40 | `get-skill/` | Partner integrations (Notion, Figma, Vercel, etc.) |
-| `community` | 44 | `get-skill/` | Community-contributed skills |
-| `project` | 19 | `.claude/skills/` | DigitalBrain project skills |
+| `official` | 16 | `vendor/get-skill/` | Anthropic official skills |
+| `partner` | 40 | `vendor/get-skill/` | Partner integrations (Notion, Figma, etc.) |
+| `community` | 44 | `vendor/get-skill/` | Community-contributed skills |
+| `project` | 19 | `.claude/skills/` | Exobrain project skills |
 | `personal` | 7 | `personal/.claude/skills/` | Personal/private skills |
-
-Skills with a `localPath` field have local copies you can read directly. Skills without it are external references only.
 
 ### If a Similar Skill Exists
 
 1. **Read the local copy** — If `localPath` exists, read the SKILL.md directly
 2. **Check if it meets your needs** — Many skills are configurable
 3. **Consider extending it** — Fork and modify rather than duplicate
-4. **Install from source** — Use the `githubUrl` to add to your project
 
-### Common Skill Categories
+## Step 2: Understand the Use Case
 
-Before creating a new skill, check these popular categories:
-- **Document Processing**: PDF, Word, Excel, PowerPoint manipulation
-- **Development**: Testing, debugging, code review, git workflows
-- **AI/ML**: Model training, datasets, evaluation, research
-- **Security**: Vulnerability analysis, fuzzing, secure coding
-- **Infrastructure**: Terraform, Kubernetes, AWS, deployment
-- **Creative & Design**: Art generation, UI design, video creation
-- **Workflow**: Session management, memory, personal workflows
-
-If no existing skill matches your needs, proceed to Step 1.
-
-## Step 1: Understand the Use Case
-
-Ask these questions:
-
-**Functionality Questions:**
-- What specific task or capability does this skill provide?
+**Functionality:**
+- What specific task does this skill provide?
 - What are concrete examples of when someone would use this?
-- What tools or APIs does it need access to?
-- Does it need to run scripts or access external resources?
+- What tools or APIs does it need?
 
-**Trigger Questions:**
-- Should Claude invoke this automatically or only manually (via `/skill-name`)?
+**Triggers:**
+- Should Claude invoke this automatically or only manually (`/skill-name`)?
 - What keywords or phrases should trigger automatic invocation?
-- What context clues indicate this skill is needed?
 
-## Step 2: Identify Reusable Components
+## Step 3: Identify Bundled Resources
 
-Organize your skill with these component types:
+Skills can bundle three types of resources:
 
-### Scripts (`scripts/`)
-Use for deterministic tasks that bash/python handle better than Claude:
-- API calls with authentication
-- File parsing and data transformation (especially when files are large)
-- Complex calculations
-- Integration with external tools
+| Type | Directory | Purpose |
+|------|-----------|---------|
+| **Scripts** | `scripts/` | Deterministic operations (API calls, file parsing, calculations) |
+| **References** | `references/` | Detailed documentation supplementing SKILL.md |
+| **Assets** | `examples/` | Templates, samples, static files |
 
-**IMPORTANT for Large Files:**
-When dealing with large files (>10MB), ALWAYS use scripts instead of loading content into Claude's context:
-- Parse and extract only what's needed
-- Use streaming/chunked processing
-- Generate summaries or indices
-- Return structured data, not raw content
+**Scripts** — Use for tasks bash/python handle better than Claude. For large files (>10MB), always use scripts instead of loading into context.
 
-Example: For a 277MB JSON file, create a Python script that:
-1. Loads the file in the script
-2. Extracts schema/statistics/samples
-3. Returns only the analysis results to Claude
-Never use Read tool or cat/head commands that would load large content into context.
+**References** — Move detailed docs out of SKILL.md: API documentation, configuration guides, advanced examples.
 
-### References (`references/`)
-Use for detailed documentation that supplements the main SKILL.md:
-- API documentation
-- Configuration guides
-- Advanced examples
-- Historical patterns and gotchas
+**Examples** — Concrete input/output pairs. Prefer concise examples over lengthy explanations.
 
-### Sources (`sources/`)
-Use for curated external skill repositories and catalogs to check *before* building:
-- Anthropic official skills repo
-- Community catalogs and indexes
-- Canonical implementations to reference or extend
-
-*(The skill-creator itself has a `sources/` directory; individual skills add it only when they aggregate external references.)*
-
-### Examples (`examples/`)
-Use for concrete input/output pairs that show the skill in action:
-- Before/after code samples
-- Sample conversations
-- Common usage patterns
-
-## Step 3: Initialize the Skill
-
-### Using the Helper Script
+## Step 4: Initialize the Skill
 
 ```bash
 python .claude/skills/skill-creator/scripts/init_skill.py <skill-name> --path .claude/skills
 ```
 
-This creates:
+Creates:
 ```
 skill-name/
 ├── SKILL.md           # Main instructions
@@ -172,332 +125,160 @@ skill-name/
 └── examples/          # Usage examples
 ```
 
-The skill-creator itself also has:
-```
-sources/               # External skill repos and catalogs (check before building)
-```
+Or manually: `mkdir -p .claude/skills/<skill-name>` and create SKILL.md.
 
-### Manual Creation
+## Step 5: Write the SKILL.md
 
-1. Create directory: `mkdir -p .claude/skills/<skill-name>`
-2. Create SKILL.md with frontmatter
-3. Add supporting directories as needed
+### Frontmatter
 
-## Step 4: Write the SKILL.md
+Loads at every boot—keep minimal.
 
-### Required Frontmatter
-
+**Required:**
 ```yaml
 ---
-name: skill-name                    # Lowercase, hyphens only, max 64 chars
-description: What it does AND when to use it. Be specific and include trigger keywords. Max 1024 chars.
-allowed-tools: [Read, Write, Bash]  # Optional: tools Claude can use without asking
-disable-model-invocation: false     # Optional: true = manual only
-user-invocable: true                # Optional: false = hidden from menu
-model: sonnet                       # Optional: specific model to use
-context: fork                       # Optional: run in isolated subagent
-agent: Explore                      # Optional: use specialized subagent
+name: skill-name        # Lowercase, hyphens only, max 64 chars
+description: What it does AND when to use it. Include trigger keywords.
 ---
+```
+
+**Optional:**
+```yaml
+allowed-tools: [Read, Write, Bash]  # Tools without permission prompts
+disable-model-invocation: false     # true = manual only
+model: sonnet                       # Specific model
+context: fork                       # Isolated subagent
 ```
 
 ### Available Tools
 
-These are the 17 built-in tools you can specify in `allowed-tools`:
+| Tool | Requires Permission |
+|------|---------------------|
+| `Read`, `Glob`, `Grep`, `Task`, `TodoWrite` | No |
+| `Write`, `Edit`, `Bash`, `WebFetch`, `WebSearch` | Yes |
 
-| Tool | Description | Requires Permission |
-|------|-------------|---------------------|
-| `Read` | Read file contents | No |
-| `Glob` | Find files by pattern | No |
-| `Grep` | Search file contents | No |
-| `Task` | Launch a sub-agent | No |
-| `TodoWrite` | Create/manage task lists | No |
-| `BashOutput` | Retrieve output from background shell | No |
-| `KillShell` | Kill a background bash shell | No |
-| `AskUserQuestion` | Ask user multiple-choice questions | No |
-| `Write` | Create or overwrite files | Yes |
-| `Edit` | Targeted edits to files | Yes |
-| `Bash` | Execute shell commands | Yes |
-| `NotebookEdit` | Modify Jupyter notebook cells | Yes |
-| `WebFetch` | Fetch a URL | Yes |
-| `WebSearch` | Search the web | Yes |
-| `Skill` | Invoke another skill | Yes |
-| `SlashCommand` | Run a custom slash command | Yes |
-| `ExitPlanMode` | Prompt user to exit plan mode | Yes |
-
-**Tip:** Tools that don't require permission are safe to include in `allowed-tools`. For tools that require permission, the user will still be prompted unless you add them to `allowed-tools`.
-
-**Pattern matching** is supported for granular control:
-
-```yaml
-allowed-tools:
-  - Bash(git *)           # Only git commands
-  - Bash(npm run test *)  # Only test commands
-  - Bash(gh *)            # Only GitHub CLI
-  - Read(~/.zshrc)        # Specific file
-  - Read(./secrets/**)    # Glob patterns
-```
+Pattern matching: `Bash(git *)`, `Read(./secrets/**)`
 
 ### Naming Conventions
 
-**Follow the Agent Skills Discovery RFC standard:**
-- 1-64 characters, lowercase alphanumeric and hyphens only
-- No leading/trailing or consecutive hyphens
-- Consistent with `.well-known/skills/` URI pattern
+**Use gerund form:** `processing-pdfs`, `analyzing-spreadsheets`, `generating-commits`
 
-**Use gerund form (verb + -ing):**
-- ✅ `processing-pdfs`
-- ✅ `analyzing-spreadsheets`
-- ✅ `generating-commit-messages`
-
-**Avoid:**
-- ❌ `helper`, `utils`, `tools`
-- ❌ `anthropic-*`, `claude-*`
-- ❌ Plural nouns without action verbs
+**Avoid:** `helper`, `utils`, `tools`, `anthropic-*`, `claude-*`
 
 ### Body Structure
 
-Use this standard structure:
+Body components (from analysis of 200+ skills):
 
+| Component | Status | Notes |
+|-----------|--------|-------|
+| **Title + Overview** | Required | Brief description |
+| **When to Use** | Common | Often paired with "When Not to Use" |
+| **When Not to Use** | Suggested | Prevents misapplication |
+| **Instructions** | Required | Core guidance, procedures |
+| **Examples** | Suggested | Concise over lengthy |
+
+**Template:**
 ```markdown
 # Skill Name
 
-Brief overview sentence.
+Brief overview.
 
-## Quick Start
+## When to Use
+- Condition A
+- Condition B
 
-Immediate actionable guidance. What to do first.
+## When Not to Use
+- Condition X
 
 ## Instructions
 
-Core guidance Claude follows when using this skill.
+Core guidance.
 - Step-by-step procedures
 - Decision criteria
-- Edge cases to handle
 
 ## Examples
 
-Concrete input/output pairs showing the skill in action.
-
-## Guidelines
-
-Rules and constraints:
-- What to do
-- What NOT to do
-- When to ask for clarification
+Concise input/output pairs.
 ```
 
 ### Writing Style
 
-**Be Direct and Imperative:**
-- ✅ "Create a plan before coding"
-- ❌ "You might want to consider creating a plan"
+- **Be direct:** "Create a plan before coding" not "You might want to consider..."
+- **Provide context Claude lacks:** "The codebase uses thiserror" not "Use appropriate error handling"
+- **Progressive disclosure:** Link to references for details
 
-**Provide Context Claude Lacks:**
-- ✅ "The codebase uses thiserror for error handling"
-- ❌ "Use appropriate error handling"
+### Dynamic Context
 
-**Use Progressive Disclosure:**
-- Keep SKILL.md focused on immediate guidance
-- Link to references for detailed information
-- Example: "See `references/api-docs.md` for complete API reference"
-
-### Dynamic Context with `!` Commands
-
-Inject live data into skills using shell commands:
-
+Inject live data with `!` commands:
 ```markdown
-## Current Pull Request
-
-!`gh pr view $ARGUMENTS --json title,body,files`
-
-Based on the PR above, review the changes...
+!`gh pr view $ARGUMENTS --json title,body`
 ```
 
-The `!` command runs before Claude sees the skill, injecting fresh data.
+Variables: `$ARGUMENTS`, `${CLAUDE_SESSION_ID}`
 
-### String Substitutions
-
-Use these variables in your skill:
-
-- `$ARGUMENTS` - User input passed to the skill
-- `${CLAUDE_SESSION_ID}` - Current session identifier
-
-Example:
-```markdown
-Analyze the file: $ARGUMENTS
-```
-
-## Step 5: Package the Skill (Optional)
-
-### Local Distribution
-
-For distribution or sharing:
+## Step 6: Package the Skill (Optional)
 
 ```bash
 python .claude/skills/skill-creator/scripts/package_skill.py .claude/skills/<skill-name>
 ```
 
-This:
-- Validates the skill structure
-- Checks required frontmatter
-- Creates a distributable zip file
-- Reports any issues
+For web distribution via `.well-known/skills/`, see `references/agent-skills-discovery-rfc.md`.
 
-### Web Distribution via .well-known
+## Step 7: Iterate and Refine
 
-Following the Agent Skills Discovery RFC, you can make skills discoverable at:
-```
-https://yoursite.com/.well-known/skills/
-```
+1. **Manual invocation**: `/skill-name` with various arguments
+2. **Automatic invocation**: Conversations where skill should trigger
+3. **Edge cases**: Missing information, errors, ambiguity
+4. **Refinement**: Update based on what works
 
-To publish for web discovery:
+## Anti-Patterns
 
-1. **Create index.json** listing all skills:
-```json
-{
-  "skills": [{
-    "name": "your-skill-name",
-    "description": "Brief description for discovery",
-    "files": ["your-skill-name/SKILL.md", "..."]
-  }]
-}
-```
+**Don't do:**
+- XML tags in body content — use standard markdown
+- Vague descriptions — "A helpful skill" → "Expert guide for creating skills"
+- Deeply nested references — keep `references/` flat
+- Scripts that punt to Claude — if deterministic, do it in the script
+- Loading large files (>10MB) into context — use scripts instead
+- Skipping `skills-catalog.json` when searching for skills — the catalog is the primary index of 200+ known skills. When asked "does a skill for X exist?", read the catalog first, then search installed SKILL.md files. A Grep match on the catalog filename is not the same as reading it.
 
-2. **Deploy to web server** maintaining the structure
-3. **Test discovery** at `/.well-known/skills/index.json`
+**A skill is NOT:**
+- An MCP Server (skills are prompts, not services)
+- A Project (skills are focused components)
+- A Prompt template (skills include structure and resources)
 
-This enables automatic discovery by any agent implementing the RFC standard.
+**When SKILL.md gets too long:**
+1. Can I break documentation into separate files?
+2. Is this actually more than one skill?
 
-## Step 6: Iterate and Refine
+> *"Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away."* — Antoine de Saint-Exupéry
 
-Test your skill in real conversations:
+## Resources
 
-1. **Manual invocation**: Try `/skill-name` with various arguments
-2. **Automatic invocation**: Have conversations where the skill should trigger
-3. **Edge cases**: Test with missing information, errors, ambiguity
-4. **Refinement**: Update based on what works and what doesn't
+### Reference Files
 
-### Common Improvements
+Load when relevant:
 
-- **Tighten the description** - Make trigger keywords more specific
-- **Add examples** - Show concrete usage patterns
-- **Extract references** - Move detailed docs out of SKILL.md
-- **Add guard rails** - Specify what NOT to do
-- **Improve scripts** - Handle errors, add validation
-
-## Anti-Patterns to Avoid
-
-❌ **XML tags in body content** - Use standard markdown only
-
-❌ **Vague descriptions** - "A helpful skill" → "Expert guide for creating Claude Code skills"
-
-❌ **Deeply nested references** - Keep references/ flat, one level max
-
-❌ **Excessive options** - Provide smart defaults, only ask when necessary
-
-❌ **Windows-style paths** - Use forward slashes: `.claude/skills/` not `.claude\skills\`
-
-❌ **Scripts that punt to Claude** - If the script can handle it deterministically, do it in the script
-
-❌ **Time-sensitive info** - Instead of "In 2024...", use "Historical pattern: ..."
-
-❌ **Loading large files into context** - Never use Read tool or show file contents for files >10MB. Instead:
-  - Create a script that processes the file and returns summaries/analysis
-  - Use streaming or chunked processing in the script
-  - Extract only the specific data needed
-  - Return structured results, not raw content
-  Example: For a 277MB JSON, create a Python script that analyzes it and returns only the schema and statistics
-
-## Anthropic Skills Repository
-
-**Official reference:** [https://github.com/anthropics/skills](https://github.com/anthropics/skills)
-
-Anthropic’s public repo contains example skills (creative, technical, enterprise, document) and the official Agent Skills spec. When creating a new skill:
-
-1. **Check before building** — See `sources/anthropic-skills.md` for a curated list of skills to consider **downloading or referencing first** so you don’t duplicate existing capabilities.
-2. **Use the template** — The repo’s [template](https://github.com/anthropics/skills/tree/main/template) and [spec](https://github.com/anthropics/skills/tree/main/spec) align with this skill’s structure.
-3. **Install via Claude Code** — In Claude Code you can add the marketplace (`/plugin marketplace add anthropics/skills`) and install `document-skills` or `example-skills`, then invoke by name (e.g. “Use the PDF skill to…”).
-
-Disclaimer: skills there are for demonstration; implementations in your environment may differ. Test before relying on them.
-
-## Reference Files
-
-**When helping create or refine a skill, scan each row below against the use case. Load the relevant reference file when a topic applies.**
-
-### `references/skill-structure.md` — Complete Specification
-
-| Section | What's There |
-|---------|--------------|
-| Directory Structure | File layout, required vs optional files |
-| Frontmatter Fields | All YAML fields with types and defaults |
-| Body Structure | Standard markdown sections |
-| Scripts Directory | Script conventions, execution patterns |
-| References Directory | How to organize supplementary docs |
-| Dynamic Context | `!` commands, string substitutions |
-| File Sizes & Limits | Token budgets, line limits |
-| Tool Access Control | `allowed-tools` patterns |
-| Context Modes | `fork` mode, isolated subagents |
-| Validation Checklist | Pre-publish verification |
-
-### `references/best-practices.md` — Writing & Design Patterns
-
-| Section | What's There |
-|---------|--------------|
-| Writing Effective Descriptions | Anatomy of good descriptions, patterns |
-| Prompting Best Practices | Direct style, assume Claude is smart |
-| Structuring Instructions | Step-by-step vs decision trees |
-| Using Scripts Effectively | When to script vs let Claude code |
-| Dynamic Context Patterns | Injecting live data |
-| Managing Skill Complexity | Quick mode vs advanced mode |
-| Testing Skills | Manual, automatic, edge case testing |
-| Naming Conventions | Gerund form, what to avoid |
-| Common Anti-Patterns | 15+ mistakes to avoid |
-| Maintenance | Version control, changelogs, updates |
-
-### `references/examples.md` — 5 Complete Skill Examples
-
-| Example | Pattern | What It Shows |
-|---------|---------|---------------|
-| DHH Rails Style | Simple reference | Style guide, conventions only |
-| PDF Processing | Script-heavy | Bundled scripts, error handling |
-| Git Commit Helper | Dynamic context | `!` commands, live git data |
-| React Component | Task-oriented | Checklists, file creation workflow |
-| Codebase Explorer | Agent-based | `context: fork`, subagent delegation |
-
-### `references/advanced-skill-patterns.md` — 6 Advanced Patterns
-
-| Pattern | When to Use |
-|---------|-------------|
-| Progressive Disclosure | SKILL.md getting too long; need on-demand loading |
-| Bundled Scripts | Claude gets operations wrong or inconsistent |
-| Workflow Branching | Skill handles different types of requests |
-| Output Verification | Need to validate what Claude produced |
-| Quality Philosophy | Output needs craftsmanship, not just correctness |
-| Environmental Adaptation | Behavior varies by available tools/integrations |
-
-### Sources (check before building)
-
-| File | Purpose |
+| File | Content |
 |------|---------|
-| `sources/anthropic-skills.md` | Anthropic official skills repo — curated list to check first |
-| `sources/README.md` | Overview of all sources for skills |
-| `skills-catalog.json` | Local catalog of 200+ skills (at skill-creator root) |
+| `references/skill-structure.md` | Directory layout, frontmatter fields, validation |
+| `references/best-practices.md` | Writing patterns, testing, anti-patterns |
+| `references/examples.md` | 5 complete skill examples |
+| `references/advanced-skill-patterns.md` | Progressive disclosure, bundled scripts, workflow branching |
 
-### Other References
+### External Sources
 
-| File | Purpose |
-|------|---------|
-| `references/agent-skills-discovery-rfc.md` | Cloudflare RFC for `.well-known/skills/` discovery |
-| `templates/skill-request.md` | Fillable form for requesting new skills |
+| Source | Purpose |
+|--------|---------|
+| `skills-catalog.json` | Local catalog of 126+ skills with paths |
+| `sources/anthropic-skills.md` | Official Anthropic skills repo |
+| [github.com/anthropics/skills](https://github.com/anthropics/skills) | Official reference |
 
-## Getting Help
+### Getting Help
 
-If you need help creating a skill:
 1. Describe what you want the skill to do
 2. Explain when it should be invoked
-3. Share any scripts, docs, or examples you want to include
-4. Claude will guide you through the creation process using this skill
+3. Share any scripts, docs, or examples
+4. Claude will guide you through creation
 
 ---
 
-**Remember:** Skills are just prompts. Keep them clear, focused, and actionable. Test in real usage and iterate based on feedback.
+**Remember:** Skills are just prompts. Keep them clear, focused, and actionable.

@@ -16,7 +16,7 @@ This skill commits changes to the correct repositories with commit messages that
 2. Review what changed in each
 3. Draft commit messages
 4. **Always** confirm with user before committing
-5. Commit and return links
+5. Commit, push, and return links
 
 ## Repository Structure
 
@@ -24,8 +24,8 @@ This project has TWO git repositories:
 
 | Repository | Location | Remote | Contains |
 |------------|----------|--------|----------|
-| **PUBLIC** | `/Users/min/Documents/Projects/DigitalBrain/` | `github.com/Minda/DigitalBrain` | Framework, generic skills, templates |
-| **PRIVATE** | `/Users/min/Documents/Projects/DigitalBrain/personal/` | `github.com/Minda/MindaMind` | Memories, drafts, personal skills, downloads |
+| **PUBLIC** | `/Users/min/Documents/Projects/Exobrain/` | `github.com/Minda/Exobrain` | Framework, generic skills, templates |
+| **PRIVATE** | `/Users/min/Documents/Projects/Exobrain/personal/` | `github.com/Minda/MindaMind` | Memories, drafts, personal skills, downloads |
 
 ## Instructions
 
@@ -35,10 +35,10 @@ This project has TWO git repositories:
 
 ```bash
 # PUBLIC repo
-cd /Users/min/Documents/Projects/DigitalBrain && git status --short
+cd /Users/min/Documents/Projects/Exobrain && git status --short
 
 # PRIVATE repo
-cd /Users/min/Documents/Projects/DigitalBrain/personal && git status --short
+cd /Users/min/Documents/Projects/Exobrain/personal && git status --short
 ```
 
 If neither has changes: "Nothing to commit in either repository."
@@ -93,7 +93,7 @@ Ask: "Does this look right? Any changes to the commit message?"
 
 **Wait for approval before proceeding.**
 
-### 5. Commit and Return
+### 5. Commit, Push, and Return
 
 ```bash
 git add <specific files>
@@ -103,11 +103,14 @@ git commit -m "$(cat <<'EOF'
 Co-Authored-By: Claude <name> <noreply@anthropic.com>
 EOF
 )"
+git push
 ```
 
-After committing, return:
+**Push by default.** Only skip pushing if the user explicitly asks not to.
+
+After committing and pushing, return:
 - Commit hash and message for each repo
-- Note whether pushed or local-only
+- GitHub remote URLs
 
 ## Examples
 
@@ -118,7 +121,7 @@ After committing, return:
 2. Reviews: 3 modified files in `memories/insights/`
 3. Drafts: `docs: Add skill design patterns to insights`
 4. Shows user and asks for confirmation
-5. After approval, commits and returns hash
+5. After approval, commits, pushes, and returns hash + GitHub URL
 
 **User:** "/commit added the new PDF skill"
 
@@ -126,14 +129,21 @@ After committing, return:
 1. Checks both repos — finds changes in PUBLIC
 2. Reviews: new `skills/processing-pdfs/` directory
 3. Uses user's hint in message: `feat: Add PDF processing skill`
-4. Confirms with user, then commits
+4. Confirms with user, then commits and pushes
+
+## When to Invoke
+
+**Do invoke** when user says: "commit", "git commit", "commit my changes", "push this", "save to git"
+
+**Don't invoke** just because work was completed. Editing or updating files does not imply intent to commit. Wait for explicit commit request.
 
 ## Guidelines
 
 | Always | Never |
 |--------|-------|
-| Confirm commit message with user first | Push to remote unless explicitly asked |
-| Add specific files by name | Use `git add -A` or `git add .` |
-| Create NEW commits | Amend unless explicitly requested |
-| Flag files that moved between repos | Commit secrets (.env, credentials, API keys) |
-| Match existing commit style | Skip the confirmation step |
+| Confirm commit message with user first | Use `git add -A` or `git add .` |
+| Push after committing (default behavior) | Amend unless explicitly requested |
+| Add specific files by name | Commit secrets (.env, credentials, API keys) |
+| Create NEW commits | Skip the confirmation step |
+| Flag files that moved between repos | Assume editing means "commit this" |
+| Match existing commit style | |

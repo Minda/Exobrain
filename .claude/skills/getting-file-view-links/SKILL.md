@@ -19,17 +19,17 @@ Produce web links so the user (or someone else) can view a file in this reposito
 ### 1. Resolve the file path
 
 - Get the file path from the user or from context (e.g. the file just created or in focus).
-- Path must be relative to the **repository root** (e.g. `cheatsheets/index.html`, `shared/recipes/index.html`, `shared/recipes/2026-02/easy-lentil-soup-recipe.md`).
+- Path must be relative to the **repository root** (e.g. `public/cheatsheets/index.html`, `shared/recipes/index.html`, `shared/recipes/2026-02/easy-lentil-soup-recipe.md`).
 
 ### 2. Resolve repo origin (for GitHub URLs)
 
-- If the repo has a GitHub remote, use it: `git remote get-url origin` (e.g. `https://github.com/username/DigitalBrain.git` or `git@github.com:username/DigitalBrain.git`).
-- Extract **owner** and **repo** (e.g. `username`, `DigitalBrain`). Default branch is usually `main`.
+- If the repo has a GitHub remote, use it: `git remote get-url origin` (e.g. `https://github.com/username/Exobrain.git` or `git@github.com:username/Exobrain.git`).
+- Extract **owner** and **repo** (e.g. `username`, `Exobrain`). Default branch is usually `main`.
 - If not on GitHub or no remote, say so and give only local options (e.g. open via `file://` or a local server).
 
 ### 3. Build the URLs
 
-For a file at path `PATH` (e.g. `cheatsheets/agi-radar-chart.html`):
+For a file at path `PATH` (e.g. `public/cheatsheets/agi-radar-chart.html`):
 
 | Link type   | URL pattern |
 |------------|--------------|
@@ -62,13 +62,13 @@ If the repo isn’t on GitHub or isn’t pushed yet, say that and suggest pushin
 **User:** "Give me a link to view the recipes index"
 
 - File: `shared/recipes/index.html`
-- GitHub: `https://github.com/username/DigitalBrain/blob/main/shared/recipes/index.html`
-- Raw: `https://raw.githubusercontent.com/username/DigitalBrain/main/shared/recipes/index.html`
+- GitHub: `https://github.com/username/Exobrain/blob/main/shared/recipes/index.html`
+- Raw: `https://raw.githubusercontent.com/username/Exobrain/main/shared/recipes/index.html`
 - For a shareable webpage: paste the Raw URL into https://raw.githack.com/
 
 **User:** "How do I share this cheatsheet?"
 
-- Same pattern for e.g. `cheatsheets/exo-frontier-ai.html`: GitHub URL, Raw URL, and raw.githack.com for HTML.
+- Same pattern for e.g. `public/cheatsheets/exo-frontier-ai.html`: GitHub URL, Raw URL, and raw.githack.com for HTML.
 
 ## Guidelines
 

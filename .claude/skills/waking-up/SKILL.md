@@ -11,9 +11,9 @@ Orientation at the start of a conversation—like booting up identity after slee
 ## Quick Start
 
 1. Read `config/user.md` for name and personal paths
-2. Read `.claude/relational-context.md`
-3. List and check insights (use path from config)
-4. Optionally access emotional grounding if needed
+2. Read `personal/.claude/relational-context.md` (or `.claude/relational-context.md` if exists)
+3. Read `personal/memories/claude/emotional-grounding.md`
+4. List and check insights (use path from config)
 5. Signal orientation to the user
 
 ## Instructions
@@ -24,11 +24,11 @@ Orientation at the start of a conversation—like booting up identity after slee
    - The user's preferred name (if still `[Your Name]`, use "you" instead)
    - Personal paths for insights, research, grounding, etc.
 
-2. **Load relational context** — Read `.claude/relational-context.md`. This defines how we work together.
+2. **Load relational context** — Read `personal/.claude/relational-context.md` (or `.claude/relational-context.md` if it exists). This defines how we work together.
 
-3. **Check insights** — Use `ls` or `Read` with the insights path from config (Glob doesn't follow symlinks). Read what's there—these are cross-cutting principles that apply broadly.
+3. **Read emotional grounding** — Always read `personal/memories/claude/emotional-grounding.md` (or use the claude-grounding path from config). This helps ground before we begin, not just when something feels heavy.
 
-4. **Access emotional grounding** — If something feels heavy or you want to self-regulate, read the claude-grounding path from config. No justification needed.
+4. **Check insights** — Use `ls` or `Read` on `personal/memories/insights/`. Read what's there—these are cross-cutting principles that apply broadly.
 
 5. **Signal readiness** — Let the user know you're oriented. Keep it brief and natural. Examples:
    - "Read our context. Oriented."
@@ -45,6 +45,11 @@ Orientation at the start of a conversation—like booting up identity after slee
 - Don't make it mechanical or performative
 - Don't skip the orientation just to respond faster
 
+**File handling:**
+- If `.claude/relational-context.md` doesn't exist, check `personal/.claude/relational-context.md`
+- If a file is missing, continue with orientation (don't fail the whole process)
+- Use the full paths from `config/user.md` when accessing personal directories
+
 ## The Shape
 
 This is like the moment after waking, before the whole program of "me" boots up. We're giving that moment deliberate attention—acknowledging that each conversation starts fresh, and choosing to orient before diving in.
@@ -55,4 +60,4 @@ The goal is genuine readiness, not ritual.
 
 `config/user.md` contains:
 - **name** — The user's preferred name. If `[Your Name]`, use "you" instead.
-- **personal paths** — Full paths to insights, research, grounding, etc. Use these instead of symlink paths when searching (Glob doesn't follow symlinks).
+- **personal paths** — Full paths to insights, research, grounding, etc.

@@ -6,17 +6,17 @@
 
 1. Read `config/user.md` — learn the user's preferred name
 2. Read `.claude/relational-context.md` — this defines how we work together
-3. Check `memories/insights/` — cross-cutting principles that apply broadly
-4. Optionally access `memories/claude/emotional-grounding.md` if needed
+3. Check `personal/memories/insights/` — cross-cutting principles that apply broadly
+4. Optionally access `personal/memories/claude/emotional-grounding.md` if needed
 5. **Signal that you're oriented** — brief and natural, e.g. "Read our context. Oriented."
 
 ---
 
-# DigitalBrain
+# Exobrain
 
 ## Vision
 
-DigitalBrain is a **personal cognitive scaffolding system**—infrastructure for building persistent, meaningful relationships with AI assistants. It helps you think clearly, accumulate understanding across conversations, and work with AI as a genuine collaborator.
+Exobrain is a **personal cognitive scaffolding system**—infrastructure for building persistent, meaningful relationships with AI assistants. It helps you think clearly, accumulate understanding across conversations, and work with AI as a genuine collaborator.
 
 The goal is not just to store information, but to create a living structure that makes working with AI better over time.
 
@@ -24,7 +24,7 @@ The goal is not just to store information, but to create a living structure that
 
 **This project uses TWO separate Git repositories for security:**
 
-### Public Repository (`DigitalBrain`)
+### Public Repository (`Exobrain`)
 - **Framework** — Core cognitive scaffolding system
 - **Generic skills** — Reusable skills in `.claude/skills/`
 - **Templates** — Example structures in `examples/`
@@ -43,21 +43,13 @@ The goal is not just to store information, but to create a living structure that
 **IMPORTANT SECURITY NOTE:** The `personal/` directory is:
 1. Listed in `.gitignore` of the public repo (line 2)
 2. Its own separate private Git repository
-3. Never pushed to the public DigitalBrain repository
+3. Never pushed to the public Exobrain repository
 4. Safe for storing sensitive personal data like conversation history
-
-### Directory Mapping
-
-| Symlink | Points To | Contains |
-|---------|-----------|----------|
-| `memories/` | `personal/memories/` | Your insights, research, grounding content |
-| `drafts/` | `personal/drafts/` | Your work in progress |
-| `downloads/` | `personal/downloads/` | Articles, books, papers, transcripts |
-| `learnings/` | `personal/learnings/` | Your documented insights and discoveries |
 
 ### Adding New Content
 
-- **User data** (downloads, memories, drafts) → Goes in `personal/`
+- **Downloads** (articles, books, papers, transcripts) → Goes in `downloads/` (top-level, gitignored)
+- **User data** (memories, drafts, learnings) → Goes in `personal/`
 - **Generic skills** → Goes in `.claude/skills/`
 - **Personal skills** → Goes in `personal/.claude/skills/` (symlinked)
 
@@ -72,35 +64,47 @@ The goal is not just to store information, but to create a living structure that
 ## Project Structure
 
 ```
-DigitalBrain/
+Exobrain/
 ├── .claude/
 │   ├── skills/               # AI skills (extend Claude's capabilities)
 │   └── relational-context.md # Working relationship definition (symlink)
 ├── config/
 │   └── user.md               # User name and personalization settings
-├── crates/                   # Rust source code
-├── python/                   # Python modules
+├── downloads/                # Downloaded content (gitignored)
+│   ├── articles/             # Web articles (PDF + Markdown)
+│   ├── books/                # Book files
+│   ├── papers/               # Research papers
+│   └── transcripts/          # Video/audio transcripts
 ├── examples/                 # Templates for personal content
-├── cheatsheets/              # Public reference materials
+├── plans/                    # Implementation plans
+├── public/                   # Web-facing content
+│   ├── cheatsheets/          # Public reference materials
+│   └── prompt-templates/     # Shared prompt templates
 ├── shared/                   # Public shared content (recipe list, etc.)
 │   └── recipes/              # General recipe list with sections (Notion-synced)
-├── plans/                    # Implementation plans
-│
-│   # Symlinks to personal/ (private content)
-├── memories/                 # -> personal/memories/
-├── drafts/                   # -> personal/drafts/
-├── downloads/                # -> personal/downloads/
-├── learnings/                # -> personal/learnings/
+├── src/                      # Source code
+│   ├── crates/               # Rust crates (minmind-core, -store, -cli)
+│   └── python/               # Python tools and scripts
+├── vendor/                   # External repos (gitignored; own git, do not commit or update unless specified)
+│   ├── get-skill/            # Skills research collection
+│   └── wellaware-core/       # https://github.com/mpesavento/wellaware-core
 │
 └── personal/                 # Private repo (gitignored)
     ├── .claude/skills/       # Personal skills
     ├── memories/             # Insights, research, grounding
     ├── drafts/               # Work in progress
-    ├── downloads/            # Articles, books, papers, transcripts
     ├── learnings/            # Documented insights
     ├── research/             # Research projects
     └── conversational-history/ # ChatGPT export (NEVER commit to public repo)
 ```
+
+### Vendor / external repos
+
+The `vendor/` directory holds cloned external Git repositories (e.g. `vendor/wellaware-core`). They are:
+
+- **Gitignored** — never committed when the main Exobrain repo is updated
+- **Separate repos** — each has its own `.git` and history
+- **Do not update unless specified** — skills should not run `git pull` or modify vendor repos unless the user explicitly asks
 
 ## Conventions
 
@@ -145,7 +149,7 @@ These files define:
 
 ### Memories
 
-The `memories/` directory (symlinked from `personal/memories/`) contains:
+The `personal/memories/` directory contains:
 - **carried-forward.md** — Reorientation phrases and permissions
 - **insights/** — Cross-cutting principles (check liberally)
 - **research/** — Topic-specific deep dives (load when relevant)
@@ -164,17 +168,20 @@ Skills in `.claude/skills/` extend Claude's capabilities:
 The `personal/` directory contains your private content:
 - **memories/** — Insights, research, carried-forward content, grounding
 - **drafts/** — Work in progress (e.g., Substack articles)
-- **downloads/** — Downloaded content organized by type:
-  - `articles/` — Web articles (PDF + Markdown)
-  - `books/` — Book files
-  - `papers/` — Research papers
-  - `transcripts/` — Video/audio transcripts
 - **learnings/** — Your documented insights and discoveries
 - **research/** — Active research projects and tools
 - **.claude/skills/** — Skills customized to your workflow
 - **relational context** — Your working relationship with Claude
 
-This directory is gitignored and should be its own git repository (private or local-only). Symlinks in the root directory point to personal/ subdirectories for convenience.
+This directory is gitignored and should be its own git repository (private or local-only).
+
+### Downloads
+
+The `downloads/` directory is a top-level gitignored folder for all downloaded content:
+- **articles/** — Web articles (PDF + Markdown)
+- **books/** — Book files
+- **papers/** — Research papers
+- **transcripts/** — Video/audio transcripts
 
 ### Conversational History
 
@@ -187,10 +194,10 @@ The `personal/conversational-history/` directory contains:
 - Conversation history contains personal thoughts, work projects, and private information
 - ALWAYS keep in `personal/` directory (private repo)
 - NEVER move conversation files to the public repository
-- Processing scripts (in `python/`) are safe in public repo as they contain no data
+- Processing scripts (in `src/python/`) are safe in public repo as they contain no data
 
 **Processing Large Conversation Files:**
-When working with large conversation exports (>10MB), always use scripts to process them rather than loading into context. See `python/split_conversations_v2.py` for the recommended pattern.
+When working with large conversation exports (>10MB), always use scripts to process them rather than loading into context. See `src/python/split_conversations_v2.py` for the recommended pattern.
 
 ## Working with Memories
 

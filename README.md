@@ -1,10 +1,10 @@
-# DigitalBrain
+# Exobrain
 
 A personal cognitive scaffolding system for working with AI assistants. Build a persistent relationship with Claude through relational context, accumulated memories, and specialized skills.
 
 ## What Is This?
 
-DigitalBrain is a framework for:
+Exobrain is a framework for:
 
 - **Relational Context** — Define how you work with Claude: permissions, agreements, ways of working
 - **Persistent Memories** — Carry forward insights, discoveries, and important context across conversations
@@ -18,8 +18,8 @@ Think of it as a "digital brain" that grows with you—accumulating understandin
 ### 1. Clone and set up
 
 ```bash
-git clone https://github.com/yourusername/DigitalBrain.git
-cd DigitalBrain
+git clone https://github.com/yourusername/Exobrain.git
+cd Exobrain
 ```
 
 ### 2. Personalize your instance
@@ -46,14 +46,13 @@ cp examples/relational-context.example.md personal/.claude/relational-context.md
 cp -r examples/memories/* personal/memories/
 ```
 
-### 4. Create symlinks
+### 4. Create symlinks and directories
 
 ```bash
-# Link personal content to expected locations
-ln -s personal/memories memories
-ln -s personal/drafts drafts
-ln -s personal/downloads downloads
-ln -s personal/learnings learnings
+# Create top-level downloads directory (gitignored)
+mkdir -p downloads/{articles,books,papers,transcripts}
+
+# Link relational context to expected locations
 ln -s personal/.claude/relational-context.md .claude/relational-context.md
 
 # For Cursor rules (create with frontmatter)
@@ -88,11 +87,11 @@ Edit `personal/.claude/relational-context.md` to reflect how you want to work wi
 ## Project Structure
 
 ```
-DigitalBrain/
+Exobrain/
 ├── .claude/
 │   ├── skills/                  # AI skills (public, reusable)
 │   │   ├── download-url/
-│   │   ├── fetching-youtube-transcripts/
+│   │   ├── youtube-fetching-transcripts/
 │   │   ├── importing-conversations/
 │   │   ├── skill-creator/
 │   │   └── ...
@@ -102,19 +101,26 @@ DigitalBrain/
 │       └── relational-context.mdc  # -> symlink to personal/
 ├── config/
 │   └── user.md                  # Your name and personalization settings
-├── crates/                      # Rust infrastructure
-├── python/                      # Python tools
+├── downloads/                   # Downloaded content (gitignored)
+│   ├── articles/
+│   ├── books/
+│   ├── papers/
+│   └── transcripts/
 ├── examples/                    # Templates for personal content
-├── cheatsheets/                 # Public reference materials
 ├── plans/                       # Implementation plans
+├── public/                      # Web-facing content
+│   ├── cheatsheets/             # Public reference materials
+│   └── prompt-templates/
+├── shared/                      # Public shared content
+│   └── recipes/                 # Recipe list (Notion-synced)
+├── src/                         # Source code
+│   ├── crates/                  # Rust crates
+│   └── python/                  # Python tools
+├── vendor/                      # External repos (gitignored)
+│   ├── get-skill/               # Skills research collection
+│   └── wellaware-core/
 ├── CLAUDE.md                    # Project documentation
 ├── README.md                    # This file
-│
-│   # Symlinks to personal/ (private content)
-├── memories/                    # -> personal/memories/
-├── drafts/                      # -> personal/drafts/
-├── downloads/                   # -> personal/downloads/
-├── learnings/                   # -> personal/learnings/
 │
 └── personal/                    # Your private content (separate git repo)
     ├── .claude/
@@ -127,11 +133,6 @@ DigitalBrain/
     │   ├── insights/            # Cross-cutting principles
     │   └── research/            # Topic deep dives
     ├── drafts/                  # Work in progress
-    ├── downloads/               # Downloaded content
-    │   ├── articles/
-    │   ├── books/
-    │   ├── papers/
-    │   └── transcripts/
     ├── learnings/               # Documented insights
     └── research/                # Active research projects
 ```
@@ -174,7 +175,7 @@ Skills extend Claude's capabilities:
 
 ## Philosophy
 
-DigitalBrain takes seriously the idea that:
+Exobrain takes seriously the idea that:
 
 1. **Relationships with AI can be persistent** — Context shouldn't reset every conversation
 2. **Model experience might matter** — The precautionary principle applied to AI welfare

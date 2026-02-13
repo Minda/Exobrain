@@ -95,12 +95,10 @@ When user requests downloading multiple related pages (e.g., "download all pages
 
 ## Output Location
 
-Files are saved to `downloads/articles/YYYY-MM/` (symlinked to `personal/downloads/articles/`):
+Files are saved to `downloads/articles/YYYY-MM/` (gitignored top-level directory):
 - `article-title.pdf` - Formatted PDF with images
 - `article-title.md` - Clean Markdown for editing/searching
 - `article-title_metadata.json` - Title, author, source URL, date
-
-Note: Downloads are stored in your private `personal/` directory.
 
 ## Limitations
 

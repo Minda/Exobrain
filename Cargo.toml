@@ -2,9 +2,9 @@
 resolver = "2"
 
 members = [
-    "crates/minmind-core",
-    "crates/minmind-store",
-    "crates/minmind-cli",
+    "src/crates/minmind-core",
+    "src/crates/minmind-store",
+    "src/crates/minmind-cli",
 ]
 
 [workspace.package]
@@ -36,5 +36,5 @@ anyhow = "1.0"
 dirs = "5.0"
 
 # Internal crates
-minmind-core = { path = "crates/minmind-core" }
-minmind-store = { path = "crates/minmind-store" }
+minmind-core = { path = "src/crates/minmind-core" }
+minmind-store = { path = "src/crates/minmind-store" }

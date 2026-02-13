@@ -1,11 +1,13 @@
 # Personal content (nested private repo)
 personal/
 
-# Symlinks to personal content (root level only)
-/memories
-/drafts
+# Vendor / external repos (own git history, not committed with main project)
+vendor/
+
+# Downloads (personal content, top-level gitignored directory)
 /downloads
-/learnings
+
+# Symlinks to personal content
 .claude/relational-context.md
 .cursor/rules/relational-context.mdc
 

@@ -47,6 +47,7 @@ Claude will automatically use this skill when you:
    - Scripts in `scripts/` for deterministic tasks
    - References in `references/` for detailed docs
    - Examples in `examples/` for usage patterns
+   - (Optional) Sources in `sources/` for skills that aggregate external references
 
 4. **Test the skill:**
    ```bash
@@ -64,14 +65,74 @@ Claude will automatically use this skill when you:
 skill-creator/
 ├── SKILL.md                           # Main skill instructions
 ├── README.md                          # This file
+├── skills-catalog.json                # Index of all skills with local paths
 ├── scripts/
 │   ├── init_skill.py                 # Initialize new skill structure
 │   └── package_skill.py              # Validate and package skills
-└── references/
-    ├── skill-structure.md            # Complete specification
-    ├── best-practices.md             # Advanced patterns and practices
-    └── examples.md                   # Real-world skill examples
+├── sources/                           # External skill repos and catalogs
+│   ├── README.md                     # Overview of sources
+│   └── anthropic-skills.md           # Anthropic official skills to check
+├── references/
+│   ├── skill-structure.md            # Complete specification
+│   ├── best-practices.md             # Advanced patterns and practices
+│   └── examples.md                   # Real-world skill examples
+└── templates/
+    └── skill-request.md              # Fillable form for requesting skills
 ```
+
+## Skills Catalog
+
+The `skills-catalog.json` file maintains an index of all available skills with their actual file locations. This catalog must be kept in sync with the project structure.
+
+### Catalog Structure
+
+```json
+{
+  "metadata": {
+    "localPaths": {
+      "downloaded": "vendor/get-skill/",
+      "anthropicRepo": "vendor/get-skill/anthropic-skills-repo/skills/",
+      "project": ".claude/skills/",
+      "personal": "personal/.claude/skills/"
+    }
+  },
+  "skills": [
+    {
+      "name": "skill-name",
+      "localPath": "vendor/get-skill/skill-name/SKILL.md",
+      "tier": "official|partner|community|project|personal",
+      ...
+    }
+  ]
+}
+```
+
+### Skill Tiers
+
+| Tier | Location | Description |
+|------|----------|-------------|
+| `official` | `vendor/get-skill/` | Anthropic official skills |
+| `partner` | `vendor/get-skill/` | Partner integrations (Notion, Figma, etc.) |
+| `community` | `vendor/get-skill/` | Community-contributed skills |
+| `project` | `.claude/skills/` | Exobrain project skills |
+| `personal` | `personal/.claude/skills/` | Personal/private skills |
+
+### Keeping the Catalog in Sync
+
+**When adding a new skill:**
+1. Create the skill in the appropriate location
+2. Add an entry to `skills-catalog.json` with `localPath`
+3. Set the correct `tier` based on location
+
+**When moving or renaming skills:**
+1. Update the `localPath` in the catalog
+2. Update any references in SKILL.md
+
+**When removing skills:**
+1. Remove the entry from the catalog
+2. Remove the skill directory
+
+The catalog supports skills without local copies (external reference only) — these entries have no `localPath` field.
 
 ## Scripts
 

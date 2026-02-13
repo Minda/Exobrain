@@ -139,7 +139,7 @@ If either check fails, revise and re-verify. Fix-and-verify in a loop until sati
 
 - **Always:** Save to `personal/learnings/` only. Learnings belong in the personal section of the project; do not write to a root `learnings/` path.
 - **Filenames:** Date range only: `personal/learnings/YYYY-MM-DD--YYYY-MM-DD.md`. Max 500 lines per file; then start a new file.
-- The root `learnings/` symlink (when set up) points to `personal/learnings/`.
+- Learnings are stored directly in `personal/learnings/`.
 - If the user specifies a different path or format, follow that instead.
 
 ## Example interactions

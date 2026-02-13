@@ -185,6 +185,34 @@ For detailed information, see:
 - `references/patterns.md` - Common usage patterns
 ```
 
+## Sources Directory (meta-skills only)
+
+Some skills—especially the skill-creator—maintain a `sources/` directory. This holds curated external skill repositories and catalogs that authors should check **before** creating a new skill.
+
+### When to Use Sources
+
+- **skill-creator** — Aggregates Anthropic’s official skills repo, community catalogs, and other canonical references
+- **Meta-skills** — Skills that guide creation or discovery of other skills
+
+### Structure
+
+```
+sources/
+├── README.md            # Overview of all sources
+├── anthropic-skills.md  # Anthropic official skills
+└── ...                  # Other external catalogs
+```
+
+### Distinction from References
+
+| `references/` | `sources/` |
+|---------------|------------|
+| How to build the skill | Where to find existing skills |
+| API docs, config guides | External repos, catalogs |
+| Internal methodology | External inspiration / check-before-build |
+
+Most skills do not need `sources/`; it is for meta-skills that aggregate external references.
+
 ## Examples Directory
 
 Examples show the skill in action with concrete input/output pairs.
